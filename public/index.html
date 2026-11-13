@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1736">
+  <title>SQL Quest Leipzig</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <button class="icon-btn mobile-only" id="menuBtn" aria-label="Navigation öffnen">☰</button>
+    <div class="brand"><span class="brand-icon">⌘</span><div><strong>SQL Quest Leipzig</strong><small>EventHub-Datenbank</small></div></div>
+    <div class="top-actions">
+      <button class="btn ghost" id="journalBtn">📄 Lernjournal / PDF</button>
+      <button class="btn ghost" id="glossaryBtn">📚 Glossar</button>
+      <button class="btn primary" id="authBtn">Anmelden</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="profile-card">
+        <div class="avatar-stage"><span id="avatar">🧑‍💻</span><span class="pet" id="pet"></span><span class="outfit" id="outfit"></span></div>
+        <div><strong id="profileName">Gastmodus</strong><small id="profileClass">nur auf diesem Gerät</small></div>
+        <div class="xp-row"><span>XP</span><strong id="xpValue">0</strong></div>
+        <div class="progress-track"><span id="progressFill"></span></div>
+        <small id="progressText">0 % abgeschlossen</small>
+      </div>
+      <nav id="chapterNav"></nav>
+      <button class="nav-link special" data-view="test">🏁 Abschlusstest</button>
+      <button class="nav-link special" data-view="bonus">✨ Bonusmissionen</button>
+      <button class="nav-link special" data-view="gallery">🛍️ Galerie & Freischaltungen</button>
+      <button class="nav-link special" data-view="checklist">✅ Selbstcheck</button>
+      <button class="nav-link special teacher-only hidden" data-view="teacher">🧑‍🏫 Lehrerbereich</button>
+    </aside>
+
+    <main id="main" class="main"></main>
+  </div>
+
+  <button id="labFab" class="lab-fab">⌨️ SQL-Labor</button>
+  <section id="labPanel" class="lab-panel" aria-label="SQL-Labor">
+    <div class="lab-head"><div><strong>SQL-Labor</strong><small>Echte SQLite-Datenbank im Browser</small></div><button class="icon-btn" id="labClose">×</button></div>
+    <div class="lab-toolbar">
+      <select id="tableSelect" aria-label="Tabelle auswählen"></select>
+      <button class="btn small" id="showTableBtn">Tabelle anzeigen</button>
+      <button class="btn small danger" id="resetDbBtn">Datenbank zurücksetzen</button>
+    </div>
+    <textarea id="labSql" spellcheck="false" aria-label="SQL-Befehl">SELECT *
+FROM veranstaltungen;</textarea>
+    <div class="lab-actions"><button class="btn primary" id="runSqlBtn">▶ SQL ausführen</button><span id="labStatus"></span></div>
+    <div id="labResult" class="result-box"></div>
+  </section>
+
+  <div class="modal hidden" id="modal"><div class="modal-card"><button class="modal-close" id="modalClose">×</button><div id="modalContent"></div></div></div>
+
+  <footer>
+    <p><strong>KI-Nachweis:</strong> Die Konzeption, Gestaltung und technische Überarbeitung dieses Kurses erfolgten am 13.11.2026 unter Nutzung von ChatGPT (GPT-5.6 Sol). Das KI-Werkzeug wurde insbesondere zur Strukturierung von Kursinhalten sowie zur Erstellung und Überarbeitung von HTML und CSS eingesetzt. Einzelne Grafiken wurden ebenfalls KI-gestützt erstellt. Die fachliche und redaktionelle Prüfung sowie die abschließende Auswahl und Anpassung der Inhalte erfolgten durch die kurserstellende Lehrkraft. Die Kennzeichnung orientiert sich an den Empfehlungen der Universität Hamburg zum Umgang mit generativer KI. <a href="https://www.uni-hamburg.de/lehre-navi/lehrende/orientierungsrahmen-gki.html" target="_blank" rel="noopener">Hinweise der Universität Hamburg</a>.</p>
+  </footer>
+
+  <script src="vendor/sql-wasm.js"></script>
+  <script src="content.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
