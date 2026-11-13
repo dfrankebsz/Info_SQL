@@ -5,7 +5,7 @@
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
   const escapeHtml = (v='') => String(v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   const clone = o => JSON.parse(JSON.stringify(o));
-  const regularTasks = C.tasks.filter(t => !t.bonus);
+  const regularTasks = C.tasks.filter(t => !t.bonus && !t.isTest);
   const allTasks = [...C.tasks, ...C.bonusTasks];
   const taskMap = Object.fromEntries(allTasks.map(t => [t.id,t]));
   const xpFor = t => (t.afb === 'I' ? 20 : t.afb === 'II' ? 35 : 50) + (t.bonus ? 15 : 0);
@@ -36,6 +36,7 @@
       seedSql = await fetch('seed.sql').then(r => {if(!r.ok) throw new Error('seed.sql fehlt'); return r.text();});
       SQL = await window.initSqlJs({locateFile:file => `vendor/${file}`});
       resetLabDb();
+      refreshAllFilterTasks();
       $('#labStatus').textContent = 'Datenbank bereit';
     }catch(err){
       $('#labStatus').textContent = 'SQL-Engine konnte nicht geladen werden';
@@ -151,44 +152,100 @@
   function renderHome(){
     currentView='home';
     const done=regularTasks.filter(t=>progress.completed?.[t.id]).length;
-    const testDone=C.tasks.filter(t=>t.isTest && progress.completed?.[t.id]).length;
+    const testTasks=C.tasks.filter(t=>t.isTest);
+    const testDone=testTasks.filter(t=>progress.completed?.[t.id]).length;
     const unlocked=C.shop.filter(i=>progress.xp>=i.xp).length;
     $('#main').innerHTML=`
-      <section class="hero"><span class="badge">SQL · EventHub Leipzig</span><h1>Von der Tabelle zur eigenen Abfrage</h1><p>Arbeiten Sie mit einer festen relationalen Datenbank, führen Sie echte SQL-Befehle aus und kontrollieren Sie sich über die angekündigte Ergebniszahl, bevor Sie eine Musterlösung öffnen.</p><div class="hero-actions"><button class="btn primary" data-view="start">Kurs starten</button><button class="btn" data-open-lab="1">SQL-Labor öffnen</button><a class="btn" href="https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all" target="_blank" rel="noopener">W3Schools TrySQL</a></div></section>
-      <div class="stat-grid"><div class="stat"><small>Reguläre Aufgaben</small><strong>${done}/${regularTasks.length}</strong></div><div class="stat"><small>XP</small><strong>${progress.xp}</strong></div><div class="stat"><small>Finaltest</small><strong>${testDone}/12</strong></div><div class="stat"><small>Freigeschaltet</small><strong>${unlocked}/${C.shop.length}</strong></div></div>
-      <section class="section"><div class="chapter-head"><div><h2>Die feste Kursdatenbank</h2><p>Ein Datenmodell, alle Kapitel. Klicken Sie im ER-Modell auf eine Tabelle.</p></div></div>${renderER()}</section>
-      <section class="section"><h2>So arbeitet dieser Kurs</h2><div class="interactive-grid"><div class="mini-tool"><h3>1. Erst selbst ausprobieren</h3><p>Jede SQL-Aufgabe nennt vorher die erwartete Zahl der Ergebnis- oder Änderungsdatensätze. Nutzen Sie diese Zahl als Plausibilitätskontrolle.</p></div><div class="mini-tool"><h3>2. Ergebnis statt Wortlaut</h3><p>Bei SQL-Aufgaben wird nicht geprüft, ob Ihr Befehl exakt wie die Musterlösung aussieht. Entscheidend ist das korrekte Ergebnis bzw. der korrekte Datenbankzustand.</p></div><div class="mini-tool"><h3>3. Sicher experimentieren</h3><p>Das SQL-Labor läuft in Ihrem Browser. UPDATE und DELETE verändern nur Ihre lokale Übungsinstanz. Mit „Datenbank zurücksetzen“ kehren Sie zum Ausgangszustand zurück.</p></div><div class="mini-tool"><h3>4. Fortschritt mit oder ohne Konto</h3><p>Im Gastmodus bleibt der Stand auf diesem Gerät. Mit Konto wird er über Netlify Functions und Blobs synchronisiert.</p></div></div></section>`;
+      <section class="hero"><span class="badge">SQL · EventHub Leipzig</span><h1>Erst filtern, dann SQL schreiben</h1><p>Der Kurs startet mit einem Detektivfall: Sie lösen echte betriebliche Anfragen zunächst mit Tabellenfiltern. Danach übertragen Sie genau diese Denkweise Schritt für Schritt in vollständige SQL-Statements.</p><div class="hero-actions"><button class="btn primary" data-view="detective">Detektivfall starten</button><button class="btn" data-open-lab="1">SQL-Labor öffnen</button><a class="btn" href="https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all" target="_blank" rel="noopener">W3Schools TrySQL</a></div></section>
+      <div class="stat-grid"><div class="stat"><small>Reguläre Aufgaben</small><strong>${done}/${regularTasks.length}</strong></div><div class="stat"><small>XP</small><strong>${progress.xp}</strong></div><div class="stat"><small>Finaltest</small><strong>${testDone}/${testTasks.length}</strong></div><div class="stat"><small>Freigeschaltet</small><strong>${unlocked}/${C.shop.length}</strong></div></div>
+      <section class="section"><h2>So arbeitet dieser Kurs</h2><div class="interactive-grid"><div class="mini-tool"><h3>1. Detektivfall</h3><p>Sie kombinieren echte Tabellenfilter und erleben, warum mehrere Bedingungen in realen Anfragen notwendig sind.</p></div><div class="mini-tool"><h3>2. Datenmodell verstehen</h3><p>Anschließend wird die feste EventHub-Datenbank über ein korrektes ER-Modell in Chen-Notation und das zugehörige Relationenmodell eingeführt.</p></div><div class="mini-tool"><h3>3. Hilfen werden abgebaut</h3><p>Frühe SQL-Aufgaben enthalten noch Gerüste. Später schreiben Sie vollständige Statements ohne vorgegebenen Befehl.</p></div><div class="mini-tool"><h3>4. Ergebnis statt Wortlaut</h3><p>Bei SQL-Aufgaben wird das fachliche Ergebnis geprüft. Unterschiedliche korrekte SQL-Befehle können deshalb akzeptiert werden.</p></div></div></section>
+      <section class="section"><div class="mini-tool"><h3>Eine Datenbank – der ganze Kurs</h3><p>Alle Aufgaben arbeiten mit <strong>EventHub Leipzig</strong>. Ihre Abfragen erzeugen echte Ergebnistabellen; UPDATE und DELETE verändern nur Ihre lokale Browserinstanz und können jederzeit zurückgesetzt werden.</p></div></section>`;
   }
 
   function renderER(){
-    return `<div class="er-wrap"><svg class="er-diagram" viewBox="0 0 960 430" role="img" aria-label="Entity-Relationship-Modell EventHub Leipzig">
-      <line class="er-line" x1="170" y1="100" x2="375" y2="100"/><line class="er-line" x1="575" y1="100" x2="785" y2="100"/><line class="er-line" x1="830" y1="145" x2="555" y2="300"/><line class="er-line" x1="865" y1="145" x2="675" y2="290"/><line class="er-line" x1="775" y1="335" x2="785" y2="335"/>
-      <g data-table="kunden"><rect class="er-box" x="30" y="55" rx="12" width="140" height="90"/><text class="er-text" x="48" y="82">KUNDEN</text><text class="er-small" x="48" y="105">PK KundenID</text><text class="er-small" x="48" y="125">Name · Stadt · …</text></g>
-      <g data-table="buchungen"><rect class="er-box" x="375" y="55" rx="12" width="200" height="90"/><text class="er-text" x="393" y="82">BUCHUNGEN</text><text class="er-small" x="393" y="105">PK BuchungID</text><text class="er-small" x="393" y="125">FK KundenID · EventID</text></g>
-      <g data-table="veranstaltungen"><rect class="er-box" x="785" y="55" rx="12" width="160" height="90"/><text class="er-text" x="803" y="82">VERANSTALTUNGEN</text><text class="er-small" x="803" y="105">PK EventID</text><text class="er-small" x="803" y="125">FK OrtID</text></g>
-      <g data-table="orte"><rect class="er-box" x="395" y="300" rx="12" width="160" height="90"/><text class="er-text" x="415" y="327">ORTE</text><text class="er-small" x="415" y="350">PK OrtID</text><text class="er-small" x="415" y="370">Bezeichnung · Stadt</text></g>
-      <g data-table="einsaetze"><rect class="er-box" x="575" y="290" rx="12" width="200" height="90"/><text class="er-text" x="595" y="317">EINSÄTZE</text><text class="er-small" x="595" y="340">PK EinsatzID</text><text class="er-small" x="595" y="360">FK EventID · MitarbeiterID</text></g>
-      <g data-table="mitarbeitende"><rect class="er-box" x="785" y="290" rx="12" width="160" height="90"/><text class="er-text" x="803" y="317">MITARBEITENDE</text><text class="er-small" x="803" y="340">PK MitarbeiterID</text><text class="er-small" x="803" y="360">Vorname · Bereich</text></g>
-      <text class="er-small" x="245" y="88">1 : n</text><text class="er-small" x="660" y="88">n : 1</text><text class="er-small" x="650" y="230">n : 1 Ort</text><text class="er-small" x="760" y="215">1 : n Einsätze</text><text class="er-small" x="780" y="325">n : 1</text>
-    </svg><div class="er-info" id="erInfo"><strong>Hinweis:</strong> Klicken Sie auf eine Tabelle, um ihre Felder und ihre Rolle im Modell zu sehen.</div></div>`;
+    return `<div class="er-wrap"><div class="er-legend"><span><i class="legend-entity"></i> Entitätstyp</span><span><i class="legend-relation"></i> Beziehung</span><span><i class="legend-attribute"></i> Attribut</span><span><u>unterstrichen</u> = Primärschlüssel</span></div><svg class="er-diagram chen" viewBox="0 0 1220 720" role="img" aria-label="ER-Modell EventHub Leipzig in Chen-Notation">
+      <!-- KUNDE -->
+      <g data-table="kunden"><rect class="er-entity" x="70" y="270" width="155" height="62"/><text class="er-text center" x="147" y="307">KUNDE</text></g>
+      <line class="er-line" x1="147" y1="270" x2="147" y2="205"/><ellipse class="er-attribute" cx="147" cy="170" rx="72" ry="28"/><text class="er-small center underline" x="147" y="175">KundenID</text>
+      <line class="er-line" x1="70" y1="284" x2="42" y2="235"/><ellipse class="er-attribute" cx="35" cy="205" rx="60" ry="27"/><text class="er-small center" x="35" y="210">Name</text>
+      <line class="er-line" x1="70" y1="320" x2="38" y2="372"/><ellipse class="er-attribute" cx="35" cy="405" rx="60" ry="27"/><text class="er-small center" x="35" y="410">Stadt</text>
+      <line class="er-line" x1="180" y1="332" x2="215" y2="383"/><ellipse class="er-attribute" cx="225" cy="418" rx="78" ry="27"/><text class="er-small center" x="225" y="423">Kundentyp</text>
+
+      <!-- bucht -->
+      <g data-table="bucht"><polygon class="er-relation" points="330,270 400,300 330,330 260,300"/><text class="er-small center" x="330" y="305">bucht</text></g>
+      <line class="er-line" x1="225" y1="301" x2="260" y2="301"/><text class="cardinality" x="240" y="288">n</text>
+      <line class="er-line" x1="400" y1="301" x2="485" y2="301"/><text class="cardinality" x="430" y="288">m</text>
+      <line class="er-line" x1="330" y1="270" x2="330" y2="215"/><ellipse class="er-attribute" cx="330" cy="180" rx="78" ry="27"/><text class="er-small center" x="330" y="185">AnzahlTickets</text>
+      <line class="er-line" x1="310" y1="327" x2="285" y2="382"/><ellipse class="er-attribute" cx="270" cy="418" rx="92" ry="27"/><text class="er-small center" x="270" y="423">Buchungsdatum</text>
+      <line class="er-line" x1="350" y1="327" x2="390" y2="382"/><ellipse class="er-attribute" cx="407" cy="418" rx="62" ry="27"/><text class="er-small center" x="407" y="423">Status</text>
+
+      <!-- VERANSTALTUNG -->
+      <g data-table="veranstaltungen"><rect class="er-entity" x="485" y="270" width="190" height="62"/><text class="er-text center" x="580" y="307">VERANSTALTUNG</text></g>
+      <line class="er-line" x1="540" y1="270" x2="500" y2="213"/><ellipse class="er-attribute" cx="480" cy="180" rx="67" ry="27"/><text class="er-small center underline" x="480" y="185">EventID</text>
+      <line class="er-line" x1="580" y1="270" x2="580" y2="205"/><ellipse class="er-attribute" cx="580" cy="170" rx="62" ry="27"/><text class="er-small center" x="580" y="175">Titel</text>
+      <line class="er-line" x1="625" y1="270" x2="675" y2="215"/><ellipse class="er-attribute" cx="703" cy="180" rx="73" ry="27"/><text class="er-small center" x="703" y="185">Kategorie</text>
+      <line class="er-line" x1="520" y1="332" x2="500" y2="386"/><ellipse class="er-attribute" cx="490" cy="420" rx="58" ry="27"/><text class="er-small center" x="490" y="425">Preis</text>
+      <line class="er-line" x1="580" y1="332" x2="580" y2="390"/><ellipse class="er-attribute" cx="580" cy="425" rx="58" ry="27"/><text class="er-small center" x="580" y="430">Datum</text>
+      <line class="er-line" x1="640" y1="332" x2="680" y2="386"/><ellipse class="er-attribute" cx="700" cy="420" rx="58" ry="27"/><text class="er-small center" x="700" y="425">Status</text>
+
+      <!-- findet statt in -->
+      <g data-table="findet"><polygon class="er-relation" points="790,270 875,300 790,330 705,300"/><text class="er-small center" x="790" y="296"><tspan x="790">findet statt</tspan><tspan x="790" dy="14">in</tspan></text></g>
+      <line class="er-line" x1="675" y1="301" x2="705" y2="301"/><text class="cardinality" x="688" y="288">n</text>
+      <line class="er-line" x1="875" y1="301" x2="940" y2="301"/><text class="cardinality" x="905" y="288">1</text>
+
+      <!-- ORT -->
+      <g data-table="orte"><rect class="er-entity" x="940" y="270" width="150" height="62"/><text class="er-text center" x="1015" y="307">ORT</text></g>
+      <line class="er-line" x1="1015" y1="270" x2="1015" y2="205"/><ellipse class="er-attribute" cx="1015" cy="170" rx="62" ry="27"/><text class="er-small center underline" x="1015" y="175">OrtID</text>
+      <line class="er-line" x1="980" y1="270" x2="945" y2="217"/><ellipse class="er-attribute" cx="920" cy="180" rx="82" ry="27"/><text class="er-small center" x="920" y="185">Bezeichnung</text>
+      <line class="er-line" x1="980" y1="332" x2="945" y2="385"/><ellipse class="er-attribute" cx="925" cy="420" rx="58" ry="27"/><text class="er-small center" x="925" y="425">Stadt</text>
+      <line class="er-line" x1="1050" y1="332" x2="1080" y2="385"/><ellipse class="er-attribute" cx="1095" cy="420" rx="74" ry="27"/><text class="er-small center" x="1095" y="425">Kapazität</text>
+
+      <!-- Betreuung n:m -->
+      <g data-table="betreuung"><polygon class="er-relation" points="580,500 670,540 580,580 490,540"/><text class="er-small center" x="580" y="536"><tspan x="580">wird betreut</tspan><tspan x="580" dy="14">von</tspan></text></g>
+      <line class="er-line" x1="580" y1="332" x2="580" y2="500"/><text class="cardinality" x="592" y="475">n</text>
+      <line class="er-line" x1="580" y1="580" x2="580" y2="625"/><text class="cardinality" x="592" y="610">m</text>
+      <line class="er-line" x1="490" y1="540" x2="425" y2="540"/><ellipse class="er-attribute" cx="370" cy="540" rx="58" ry="27"/><text class="er-small center" x="370" y="545">Stunden</text>
+      <line class="er-line" x1="670" y1="540" x2="735" y2="540"/><ellipse class="er-attribute" cx="790" cy="540" rx="58" ry="27"/><text class="er-small center" x="790" y="545">Rolle</text>
+
+      <!-- MITARBEITENDE -->
+      <g data-table="mitarbeitende"><rect class="er-entity" x="485" y="625" width="190" height="62"/><text class="er-text center" x="580" y="662">MITARBEITENDE</text></g>
+      <line class="er-line" x1="485" y1="642" x2="415" y2="620"/><ellipse class="er-attribute" cx="355" cy="603" rx="86" ry="27"/><text class="er-small center underline" x="355" y="608">MitarbeiterID</text>
+      <line class="er-line" x1="505" y1="687" x2="455" y2="705"/><ellipse class="er-attribute" cx="405" cy="708" rx="60" ry="24"/><text class="er-small center" x="405" y="713">Vorname</text>
+      <line class="er-line" x1="560" y1="687" x2="545" y2="708"/><ellipse class="er-attribute" cx="545" cy="708" rx="65" ry="24"/><text class="er-small center" x="545" y="713">Nachname</text>
+      <line class="er-line" x1="625" y1="687" x2="685" y2="705"/><ellipse class="er-attribute" cx="735" cy="708" rx="62" ry="24"/><text class="er-small center" x="735" y="713">Bereich</text>
+    </svg><div class="er-info" id="erInfo"><strong>Hinweis:</strong> Klicken Sie auf ein Rechteck oder eine Raute. Das Modell zeigt bewusst die konzeptionelle Ebene; im Relationenmodell werden die n:m-Beziehungen als Tabellen <code>buchungen</code> und <code>einsaetze</code> umgesetzt.</div></div>`;
   }
   const erDetails={
-    kunden:'<strong>kunden</strong>: KundenID (PK), Name, Stadt, Land, Kundentyp. Eine Kundin bzw. ein Kunde kann mehrere Buchungen besitzen.',
-    buchungen:'<strong>buchungen</strong>: BuchungID (PK), KundenID (FK), EventID (FK), AnzahlTickets, Buchungsdatum, Status. Diese Tabelle löst die n:m-Beziehung zwischen Kunden und Veranstaltungen auf.',
-    veranstaltungen:'<strong>veranstaltungen</strong>: EventID (PK), Titel, Kategorie, Preis, OrtID (FK), Datum, Status.',
-    orte:'<strong>orte</strong>: OrtID (PK), Bezeichnung, Stadt, Kapazitaet. Ein Ort kann mehrere Veranstaltungen aufnehmen.',
-    einsaetze:'<strong>einsaetze</strong>: EinsatzID (PK), EventID (FK), MitarbeiterID (FK), Stunden, Rolle. Beziehungstabelle zwischen Veranstaltungen und Mitarbeitenden.',
-    mitarbeitende:'<strong>mitarbeitende</strong>: MitarbeiterID (PK), Vorname, Nachname, Bereich, Aktiv.'
+    kunden:'<strong>KUNDE</strong>: Entitätstyp mit den Attributen KundenID, Name, Stadt, Land und Kundentyp. KundenID ist der Primärschlüssel.',
+    bucht:'<strong>bucht</strong>: n:m-Beziehung zwischen KUNDE und VERANSTALTUNG. Beziehungsattribute sind AnzahlTickets, Buchungsdatum und Status. Im Relationenmodell wird daraus die Tabelle <code>buchungen</code> mit eigener BuchungID sowie KundenID und EventID als Fremdschlüssel.',
+    veranstaltungen:'<strong>VERANSTALTUNG</strong>: Entitätstyp mit EventID als Primärschlüssel sowie Titel, Kategorie, Preis, Datum und Status.',
+    findet:'<strong>findet statt in</strong>: n:1-Beziehung. Viele Veranstaltungen können demselben Ort zugeordnet sein; jede Veranstaltung verweist im Relationenmodell über OrtID auf genau einen Ort.',
+    orte:'<strong>ORT</strong>: Entitätstyp mit OrtID als Primärschlüssel sowie Bezeichnung, Stadt und Kapazität.',
+    betreuung:'<strong>wird betreut von</strong>: n:m-Beziehung zwischen VERANSTALTUNG und MITARBEITENDE mit den Beziehungsattributen Stunden und Rolle. Im Relationenmodell wird daraus die Tabelle <code>einsaetze</code> mit eigener EinsatzID.',
+    mitarbeitende:'<strong>MITARBEITENDE</strong>: Entitätstyp mit MitarbeiterID als Primärschlüssel sowie Vorname, Nachname, Bereich und Aktiv.'
   };
 
-  function renderChapter(id){
-    currentView=id; const ch=C.chapters.find(x=>x.id===id); const ts=C.tasks.filter(t=>t.chapter===id);
-    let extra='';
-    if(id==='where') extra=renderWhereSlider();
-    if(id==='logic') extra=renderLikeTool();
-    $('#main').innerHTML=`<section class="chapter-head"><div><span class="badge">Lernkapitel</span><h2>${ch.icon} ${ch.title}</h2><p>${ch.subtitle}</p></div><strong>${ts.filter(t=>progress.completed?.[t.id]).length}/${ts.length}</strong></section><section class="chapter-intro">${ch.intro}<div class="video-row">${ch.videos.map(v=>`<a class="video-link" href="${v[1]}" target="_blank" rel="noopener">▶ ${v[0]}</a>`).join('')}</div></section>${extra}<div class="task-grid">${ts.map(renderTask).join('')}</div>`;
-    hydrateTaskState(); if(id==='where') updateWhereTool(); if(id==='logic') updateLikeTool();
+  function renderRelationalOverview(){
+    return `<section class="section"><div class="chapter-head"><div><h3>Vom ER-Modell zum Relationenmodell</h3><p>Diese sechs Tabellen stehen im SQL-Labor tatsächlich zur Verfügung.</p></div></div><div class="schema-grid">
+      <button class="schema-card" data-open-table="kunden"><strong>kunden</strong><small>PK KundenID</small><span>Name · Stadt · Land · Kundentyp</span></button>
+      <button class="schema-card" data-open-table="orte"><strong>orte</strong><small>PK OrtID</small><span>Bezeichnung · Stadt · Kapazitaet</span></button>
+      <button class="schema-card" data-open-table="veranstaltungen"><strong>veranstaltungen</strong><small>PK EventID · FK OrtID</small><span>Titel · Kategorie · Preis · Datum · Status</span></button>
+      <button class="schema-card" data-open-table="buchungen"><strong>buchungen</strong><small>PK BuchungID · FK KundenID · EventID</small><span>AnzahlTickets · Buchungsdatum · Status</span></button>
+      <button class="schema-card" data-open-table="mitarbeitende"><strong>mitarbeitende</strong><small>PK MitarbeiterID</small><span>Vorname · Nachname · Bereich · Aktiv</span></button>
+      <button class="schema-card" data-open-table="einsaetze"><strong>einsaetze</strong><small>PK EinsatzID · FK EventID · MitarbeiterID</small><span>Stunden · Rolle</span></button>
+    </div></section>`;
   }
+
+  function renderChapter(id){
+    currentView=id; const ch=C.chapters.find(x=>x.id===id); const ts=C.tasks.filter(t=>t.chapter===id && !t.isTest);
+    let extra='';
+    if(id==='model') extra=`<section class="section"><div class="chapter-head"><div><h3>ER-Modell in Chen-Notation</h3><p>Rechteck = Entitätstyp · Raute = Beziehung · Oval = Attribut.</p></div></div>${renderER()}</section>${renderRelationalOverview()}`;
+    if(id==='where') extra+=renderWhereSlider();
+    if(id==='logic') extra+=renderLikeTool();
+    $('#main').innerHTML=`<section class="chapter-head"><div><span class="badge">Lernkapitel</span><h2>${ch.icon} ${ch.title}</h2><p>${ch.subtitle}</p></div><strong>${ts.filter(t=>progress.completed?.[t.id]).length}/${ts.length}</strong></section><section class="chapter-intro">${ch.intro}<div class="video-row">${ch.videos.map(v=>`<a class="video-link" href="${v[1]}" target="_blank" rel="noopener">▶ ${v[0]}</a>`).join('')}</div></section>${extra}<div class="task-grid">${ts.map(renderTask).join('')}</div>`;
+    hydrateTaskState(); if(id==='where') updateWhereTool(); if(id==='logic') updateLikeTool(); refreshAllFilterTasks();
+  }
+
   function renderWhereSlider(){ return `<section class="section"><div class="mini-tool"><h3>Interaktiv: Preisgrenze verschieben</h3><p>Beobachten Sie, wie eine WHERE-Bedingung die Ergebnismenge verändert.</p><label>Preis größer als <strong><output id="priceVal">10</output> €</strong></label><input id="priceSlider" type="range" min="0" max="30" step="1" value="10"><div class="mini-results" id="priceResults"></div></div></section>`; }
   function renderLikeTool(){ return `<section class="section"><div class="mini-tool"><h3>Interaktiv: LIKE-Muster testen</h3><p>Verändern Sie das Muster. Beispiele: <code>G%</code>, <code>%a%</code>, <code>%Open</code>.</p><input id="likePattern" type="text" value="%a%" aria-label="LIKE-Muster"><div class="mini-results" id="likeResults"></div></div></section>`; }
 
@@ -217,12 +274,47 @@
     } else if(t.type==='free'){
       body=`<textarea data-answer="${t.id}" rows="5" placeholder="Ihre fachliche Antwort …">${escapeHtml(answer)}</textarea><div class="task-actions"><button class="btn small" data-save-free="${t.id}">Antwort speichern</button>${ext}</div><div class="self-check ${solutionSeen?'':'hidden'}" data-self="${t.id}"><p>Vergleichen Sie Ihre Antwort mit der Musterlösung.</p><div class="task-actions"><button class="btn small primary" data-self-ok="${t.id}">Richtig – als korrekt werten</button><button class="btn small" data-self-retry="${t.id}">Nochmal bearbeiten</button></div></div>`;
     } else if(t.type==='sql'){
-      const sql=answer || t.starter || ''; body=`<textarea class="sql-input" data-sql="${t.id}" spellcheck="false">${escapeHtml(sql)}</textarea><div class="task-actions"><button class="btn small" data-run-task="${t.id}">▶ Ausführen</button><button class="btn small primary" data-check-task="${t.id}">✓ Ergebnis prüfen</button><button class="btn small" data-to-lab="${t.id}">Im großen SQL-Labor öffnen</button></div><div class="result-box task-result" id="result-${t.id}"></div>`;
+      const sql=answer || t.starter || ''; body=`<textarea class="sql-input" data-sql="${t.id}" spellcheck="false" placeholder="Schreiben Sie hier Ihren vollständigen SQL-Befehl …">${escapeHtml(sql)}</textarea><div class="task-actions"><button class="btn small" data-run-task="${t.id}">▶ Ausführen</button><button class="btn small primary" data-check-task="${t.id}">✓ Ergebnis prüfen</button><button class="btn small" data-to-lab="${t.id}">Im großen SQL-Labor öffnen</button></div><div class="result-box task-result" id="result-${t.id}"></div>`;
+    } else if(t.type==='filter'){
+      body=renderFilterTask(t);
     }
-    return `<article class="task ${done?'completed':''}" id="task-${t.id}"><div class="task-top"><div><div class="badges"><span class="badge afb${t.afb==='I'?'1':t.afb==='II'?'2':'3'}">AFB ${t.afb}</span>${t.bonus?'<span class="badge">Bonus</span>':''}<span class="badge rows">${escapeHtml(t.rowHint)}</span>${done?'<span class="badge done">✓ erledigt</span>':''}</div><h3>${t.title}</h3></div><strong>+${xpFor(t)} XP</strong></div><div class="prompt">${t.prompt}</div>${body}<div class="task-actions">${!['free','sql'].includes(t.type)?`<button class="btn small primary" data-check="${t.id}">Prüfen</button>`:''}<button class="btn small" data-solution="${t.id}">Musterlösung anzeigen</button></div><div class="feedback hidden" id="feedback-${t.id}"></div><div class="solution ${solutionSeen?'visible':''}" id="solution-${t.id}"><strong>Musterlösung</strong>${formatSolution(t.solution)}</div></article>`;
+    const objectiveButton=!['free','sql','filter'].includes(t.type)?`<button class="btn small primary" data-check="${t.id}">Prüfen</button>`:'';
+    return `<article class="task ${done?'completed':''}" id="task-${t.id}"><div class="task-top"><div><div class="badges"><span class="badge afb${t.afb==='I'?'1':t.afb==='II'?'2':'3'}">AFB ${t.afb}</span>${t.bonus?'<span class="badge">Bonus</span>':''}<span class="badge rows">${escapeHtml(t.rowHint)}</span>${done?'<span class="badge done">✓ erledigt</span>':''}</div><h3>${t.title}</h3></div><strong>+${xpFor(t)} XP</strong></div><div class="prompt">${t.prompt}</div>${body}<div class="task-actions">${objectiveButton}<button class="btn small" data-solution="${t.id}">Musterlösung anzeigen</button></div><div class="feedback hidden" id="feedback-${t.id}"></div><div class="solution ${solutionSeen?'visible':''}" id="solution-${t.id}"><strong>Musterlösung</strong>${formatSolution(t.solution)}</div></article>`;
   }
-  function formatSolution(s){ if(!s) return ''; if(s.includes('\n') && /SELECT|UPDATE|DELETE/i.test(s)) return `<pre>${escapeHtml(s)}</pre>`; return `<p>${s}</p>`; }
-  function hydrateTaskState(){ updateChrome(); }
+  function formatSolution(s){ if(!s) return ''; if(/^\s*(SELECT|UPDATE|DELETE)/i.test(s)) return `<pre>${escapeHtml(s)}</pre>`; return `<p>${s}</p>`; }
+  function renderFilterTask(t){
+    const a=progress.answers?.[t.id]&&typeof progress.answers[t.id]==='object'?progress.answers[t.id]:{};
+    const controls=t.filterSpec.controls.map(c=>{
+      if(c.type==='select') return `<label class="filter-field"><span>${escapeHtml(c.label)}</span><select data-filter-task="${t.id}" data-filter-key="${c.key}">${c.options.map(o=>`<option value="${escapeHtml(o)}" ${String(a[c.key]??'')===String(o)?'selected':''}>${escapeHtml(o||'Alle')}</option>`).join('')}</select></label>`;
+      if(c.type==='number') return `<label class="filter-field"><span>${escapeHtml(c.label)}</span><input type="number" step="0.1" data-filter-task="${t.id}" data-filter-key="${c.key}" value="${escapeHtml(a[c.key]??'')}"></label>`;
+      if(c.type==='date') return `<label class="filter-field"><span>${escapeHtml(c.label)}</span><input type="date" data-filter-task="${t.id}" data-filter-key="${c.key}" value="${escapeHtml(a[c.key]??'')}"></label>`;
+      if(c.type==='multiselect') { const vals=Array.isArray(a[c.key])?a[c.key]:[]; return `<fieldset class="filter-field filter-multi"><legend>${escapeHtml(c.label)}</legend>${c.options.map(o=>`<label><input type="checkbox" data-filter-task="${t.id}" data-filter-key="${c.key}" value="${escapeHtml(o)}" ${vals.includes(o)?'checked':''}> ${escapeHtml(o)}</label>`).join('')}</fieldset>`; }
+      return '';
+    }).join('');
+    return `<div class="filter-lab"><div class="filter-controls">${controls}</div><div class="filter-status" id="filter-status-${t.id}">Filter werden geladen …</div><div class="table-scroll filter-table" id="filter-table-${t.id}"></div><div class="task-actions"><button class="btn small primary" data-check-filter="${t.id}">✓ Filter prüfen</button><button class="btn small" data-reset-filter="${t.id}">Filter zurücksetzen</button></div></div>`;
+  }
+  function getFilterRows(t){
+    if(!SQL) return {columns:[],rows:[]}; const d=freshDb();
+    try{const q=`SELECT ${t.filterSpec.columns.join(', ')} FROM ${t.filterSpec.table} ORDER BY ${t.filterSpec.idField};`;const r=d.exec(q)[0];return {columns:r?.columns||[],rows:r?.values||[]};} finally{d.close();}
+  }
+  function filteredRows(t){
+    const {columns,rows}=getFilterRows(t); const a=progress.answers?.[t.id]&&typeof progress.answers[t.id]==='object'?progress.answers[t.id]:{};
+    const objs=rows.map(row=>Object.fromEntries(columns.map((c,i)=>[c,row[i]])));
+    const out=objs.filter(obj=>t.filterSpec.controls.every(c=>{
+      const v=a[c.key]; if(c.type==='multiselect'){if(!Array.isArray(v)||!v.length)return true;return v.map(String).includes(String(obj[c.column]));}
+      if(v===undefined||v===null||v==='')return true; const left=obj[c.column]; const right=(c.type==='number')?Number(v):v;
+      if(c.op==='=')return String(left)===String(right); if(c.op==='<')return Number(left)<Number(right); if(c.op==='<=')return Number(left)<=Number(right); if(c.op==='>=')return c.type==='date'?String(left)>=String(right):Number(left)>=Number(right); if(c.op==='>')return Number(left)>Number(right); return true;
+    })); return {columns,rows:out.map(o=>columns.map(c=>o[c])),ids:out.map(o=>Number(o[t.filterSpec.idField]))};
+  }
+  function refreshFilterTask(id){
+    const t=taskMap[id]; if(!t||t.type!=='filter'||!SQL)return; const r=filteredRows(t); const box=$(`#filter-table-${id}`), status=$(`#filter-status-${id}`); if(!box||!status)return;
+    status.innerHTML=`Aktuell <strong>${r.rows.length}</strong> Treffer`;
+    box.innerHTML=`<table class="data-table"><thead><tr>${r.columns.map(c=>`<th>${escapeHtml(c)}</th>`).join('')}</tr></thead><tbody>${r.rows.map(row=>`<tr>${row.map(v=>`<td>${escapeHtml(v)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+  }
+  function refreshAllFilterTasks(){ C.tasks.filter(t=>t.type==='filter').forEach(t=>refreshFilterTask(t.id)); }
+  function resetFilterTask(id){progress.answers[id]={};saveLocal();renderCurrent();}
+  function checkFilterTask(id){const t=taskMap[id], r=filteredRows(t); const got=[...r.ids].sort((a,b)=>a-b), exp=[...t.filterSpec.expectedIds].sort((a,b)=>a-b); if(JSON.stringify(got)===JSON.stringify(exp)){completeTask(id);showFeedback(id,true,positive());}else showFeedback(id,false,`Noch nicht passend: Aktuell bleiben ${r.rows.length} Treffer übrig. Nutzen Sie die angekündigte Trefferzahl und prüfen Sie die Filterbedingungen.`);}
+  function hydrateTaskState(){ updateChrome(); refreshAllFilterTasks(); }
 
   function handleMainClick(e){
     const view=e.target.closest('[data-view]')?.dataset.view; if(view){navigate(view);return;}
@@ -230,6 +322,9 @@
     const er=e.target.closest('[data-table]'); if(er){$('#erInfo').innerHTML=erDetails[er.dataset.table]||''; return;}
     const sol=e.target.closest('[data-solution]'); if(sol){revealSolution(sol.dataset.solution);return;}
     const check=e.target.closest('[data-check]'); if(check){checkObjective(check.dataset.check);return;}
+    const openTable=e.target.closest('[data-open-table]'); if(openTable){const n=openTable.dataset.openTable;$('#labSql').value=`SELECT *\nFROM ${n};`;$('#labPanel').classList.add('open');runLabSql();return;}
+    const fcheck=e.target.closest('[data-check-filter]'); if(fcheck){checkFilterTask(fcheck.dataset.checkFilter);return;}
+    const freset=e.target.closest('[data-reset-filter]'); if(freset){resetFilterTask(freset.dataset.resetFilter);return;}
     const run=e.target.closest('[data-run-task]'); if(run){runTaskSql(run.dataset.runTask,false);return;}
     const checksql=e.target.closest('[data-check-task]'); if(checksql){checkSqlTask(checksql.dataset.checkTask);return;}
     const tolab=e.target.closest('[data-to-lab]'); if(tolab){const id=tolab.dataset.toLab;$('#labSql').value=$(`[data-sql="${id}"]`)?.value||'';$('#labPanel').classList.add('open');return;}
@@ -245,6 +340,7 @@
   function handleMainInput(e){
     if(e.target.matches('[data-answer]')){progress.answers[e.target.dataset.answer]=e.target.value; saveLocal();}
     if(e.target.matches('[data-sql]')){progress.answers[e.target.dataset.sql]=e.target.value; saveLocal();}
+    if(e.target.matches('[data-filter-task]')){const id=e.target.dataset.filterTask,key=e.target.dataset.filterKey;const a=progress.answers[id]&&typeof progress.answers[id]==='object'?progress.answers[id]:{};if(e.target.type==='checkbox'){a[key]=[...$$(`[data-filter-task="${id}"][data-filter-key="${key}"]:checked`)].map(x=>x.value);}else a[key]=e.target.value;progress.answers[id]=a;saveLocal();refreshFilterTask(id);}
     if(e.target.id==='priceSlider') updateWhereTool();
     if(e.target.id==='likePattern') updateLikeTool();
     if(e.target.matches('[data-check-range]')){const i=+e.target.dataset.checkRange; progress.checklist[i].value=+e.target.value; saveLocal(); $(`#rangeVal-${i}`).textContent=e.target.value;}
@@ -278,7 +374,7 @@
   }
   function completeTask(id){ if(progress.completed[id]) return; progress.completed[id]=true; progress.xp=calcXp(progress); unlockBadges(); saveLocal(); const card=$(`#task-${id}`);card?.classList.add('completed'); updateChrome(); }
   function unlockBadges(){
-    const chapterBadges={start:'Datenmodell-Scout',select:'SELECT-Starter',where:'Filter-Profi',order:'Sortier-Navigator',logic:'Logik-Tracker',change:'Data-Caretaker'};
+    const chapterBadges={detective:'Daten-Detektiv',model:'Datenmodell-Scout',select:'SELECT-Starter',where:'Filter-Profi',order:'Sortier-Navigator',logic:'Logik-Tracker',change:'Data-Caretaker'};
     for(const ch of C.chapters){const ts=C.tasks.filter(t=>t.chapter===ch.id); if(ts.length && ts.every(t=>progress.completed[t.id])){const b=chapterBadges[ch.id];if(b&&!progress.badges.includes(b))progress.badges.push(b);}}
     const test=C.tasks.filter(t=>t.isTest); if(test.every(t=>progress.completed[t.id])&&!progress.badges.includes('Query Master'))progress.badges.push('Query Master');
   }

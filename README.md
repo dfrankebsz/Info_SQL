@@ -1,67 +1,71 @@
 # SQL Quest Leipzig
 
-Interaktiver SQL-Lernkurs für Netlify mit einer festen Übungsdatenbank **EventHub Leipzig**.
+Interaktiver SQL-Lernkurs für Netlify mit der festen Übungsdatenbank **EventHub Leipzig**.
 
 ## Architektur
 
 - **Frontend:** statisches HTML/CSS/JavaScript in `public/`
 - **SQL-Übungsdatenbank:** SQLite über `sql.js`/WebAssembly direkt im Browser
 - **Konten, Klassen, Fortschritt, XP:** Netlify Functions + Netlify Blobs
-- **Kein Supabase und kein SQL-Editor bei Supabase erforderlich**
+- **Kein Supabase und kein Supabase-SQL-Editor erforderlich**
 - **Kein allgemeiner AUTH-Schlüssel erforderlich**
 
-Die SQL-Datenbank für Übungen liegt absichtlich **nicht** in Netlify Blobs: Blobs speichert Konten/Fortschritt als Key-Value-Daten; die relationale Übungsdatenbank läuft isoliert pro Browser. Dadurch kann jede Person UPDATE und DELETE gefahrlos ausprobieren und die Datenbank jederzeit auf den Ausgangszustand zurücksetzen.
+Die relationale SQL-Übungsdatenbank läuft absichtlich isoliert pro Browser. Dadurch können Schülerinnen und Schüler SELECT, UPDATE und DELETE real ausführen, ohne eine gemeinsame Datenbank zu beschädigen. Mit „Datenbank zurücksetzen“ wird jederzeit der Ausgangszustand hergestellt.
 
 ## Deployment über GitHub + Netlify
 
-1. Den Inhalt dieses ZIP-Ordners als GitHub-Repository hochladen.
+1. Inhalt des ZIP-Ordners als GitHub-Repository hochladen.
 2. In Netlify **Add new project → Import an existing project** und das Repository auswählen.
 3. Build- und Publish-Einstellungen werden aus `netlify.toml` übernommen.
 4. Unter **Project configuration → Environment variables** setzen:
-   - `TEACHER_SETUP_CODE` = ein eigener langer Einrichtungs-Code für Lehrkräfte.
-   - optional `BLOBS_REGION` = `eu-central-1` (ist bereits der Standard im Projekt).
+   - `TEACHER_SETUP_CODE` = eigener langer Einrichtungs-Code für Lehrkräfte.
+   - optional `BLOBS_REGION` = `eu-central-1`.
 5. Deploy starten.
 6. Im Kurs auf **Anmelden → Lehrerzugang anlegen** gehen und Klasse, Nickname, Passwort sowie den Setup-Code eingeben.
-7. Anschließend können Schülerkonten nur für bereits eingerichtete Klassen angelegt werden.
+7. Schülerkonten können anschließend nur für bereits eingerichtete Klassen angelegt werden.
 
-`TEACHER_SETUP_CODE` wird nur zum Anlegen neuer Lehrerzugänge benötigt. Bereits bestehende Konten können sich auch anmelden, wenn der Code später aus den Environment Variables entfernt wird.
+## Didaktischer Aufbau
 
-## Funktionen
+1. **EventHub-Detektivfall:** drei echte Tabellenfilter-Aufgaben ohne SQL. Mehrere Filter müssen kombiniert werden.
+2. **EventHub-Datenbank:** ER-Modell in Chen-Notation mit Rechtecken, Rauten und Ovalen; anschließend Relationenmodell.
+3. **SELECT und FROM:** zunächst mit Gerüsten, später vollständige Statements ohne Vorgaben.
+4. **WHERE und Vergleiche:** Übertragung der Filterlogik in SQL.
+5. **ORDER BY und NOT**
+6. **LIKE, AND, OR und Klammern**
+7. **UPDATE und DELETE**
+8. **Abschlusstest**
 
-- Bearbeitung als Gast oder mit Konto
-- Klassenbasierte Schüler- und Lehrerzuordnung
-- Passwort-Hashing mit Node.js `scrypt`
-- 30-Tage-Sessions
-- Lehrerübersicht nur für die eigene Klasse
-- Nutzer löschen, Passwort zurücksetzen, einzelnen oder gesamten Klassenfortschritt zurücksetzen
-- 48 reguläre Aufgaben + 8 Bonusaufgaben
-- AFB-Kennzeichnung an jeder Aufgabe
-- interaktives ER-Modell, WHERE-Regler und LIKE-Muster-Visualisierung
-- SQL-Labor mit echten Ergebnistabellen
-- automatische SQL-Kontrolle anhand des Resultats statt anhand des exakten Wortlauts
-- UPDATE/DELETE werden gegen eine frische, isolierte Datenbankinstanz geprüft
-- erwartete Ergebnis-/Änderungszahl vor jeder SQL-Aufgabe
-- XP, Badges, Themes, Avatare, Haustiere und Outfits
-- Abschluss-Test und 10-Punkte-Selbstcheck
-- Lernjournal als druckoptimierte Ansicht zum Speichern als PDF
+Innerhalb der Kapitel steigt die Schwierigkeit. Spätere Aufgaben geben keine Teile des SQL-Befehls mehr vor.
+
+## Aufgabenformate
+
+- 60 reguläre Aufgaben
+- 15 × AFB I, 30 × AFB II, 15 × AFB III
+- 12 Aufgaben im Abschlusstest
+- 8 Bonusmissionen in AFB II/III
+- echte SQL-Abfragen mit Ergebnistabellen
+- Tabellenfilter im Detektivfall
+- Fehler in SQL-Befehlen finden und korrigieren
+- SQL-Befehle aus vorgegebenen Ausgabetabellen entwickeln
+- Multiple Choice, Mehrfachauswahl, Richtig/Falsch, Drag & Drop, Reihenfolge, Freitext
+
+Vor jeder SQL-Aufgabe wird die erwartete Zahl der Ergebnis- bzw. Änderungsdatensätze genannt. Die automatische Kontrolle bewertet bei SELECT-Aufgaben die **erzeugte Ergebnistabelle**, nicht den exakten Wortlaut. Dadurch werden unterschiedliche fachlich korrekte SQL-Befehle akzeptiert, wenn sie dieselbe Ausgabe erzeugen.
+
+## Weitere Funktionen
+
+- Gastmodus sowie Konten mit Klasse + Nickname + Passwort
+- Klassenbasierter Lehrerzugang
+- Nutzer löschen, Passwörter zurücksetzen, Fortschritt einzeln oder klassenweit zurücksetzen
+- SQL-Labor mit Tabellenbrowser und Reset-Funktion
+- W3Schools-Videos und Tutorialseiten aus dem Unterrichtsmaterial verlinkt
+- XP, Kapitel-Badges, Themes, Avatare, Haustiere und Outfits
+- 10-Punkte-Selbstcheck auf Skala 1–5 mit reversiblem Erledigt-Status
+- Lernjournal mit allen abgeschlossenen Aufgaben und eigenen Antworten als druckoptimierte PDF-Ansicht
+- Glossar
 
 ## SQL-Engine
 
-Beim Netlify-Build wird `sql.js` aus `node_modules` nach `public/vendor/` kopiert. Dadurch wird die SQL-Engine nach dem Deployment vom eigenen Netlify-Projekt ausgeliefert und nicht erst zur Laufzeit von einem CDN geladen.
-
-## Fachlicher Umfang
-
-Der Kurs baut schrittweise auf:
-
-1. Datenbank, ER-Modell, Relationenmodell und Schlüssel
-2. SELECT und FROM
-3. WHERE und Vergleichsoperatoren
-4. ORDER BY und NOT
-5. LIKE, AND, OR und Klammern
-6. UPDATE und DELETE
-7. Abschlusstest
-
-Die Aufgaben orientieren sich an den bereitgestellten Übungsformaten, verwenden aber eine eigene Datenbank und neue Kontexte. Die im Ausgangsmaterial verlinkten W3Schools-Videos und -Seiten sind im Kurs als weiterführende Ressourcen integriert.
+Beim Netlify-Build wird `sql.js` aus `node_modules` nach `public/vendor/` kopiert. Die Engine wird danach vom eigenen Netlify-Projekt ausgeliefert.
 
 ## Lokale Entwicklung
 
@@ -71,4 +75,4 @@ npm run build
 npx netlify dev
 ```
 
-Für die vollständige Anmeldung/Blobs-Funktionalität ist Netlify Dev oder ein Netlify-Deploy erforderlich. Das Frontend selbst bleibt statisch deploybar.
+Für Anmeldung und Netlify Blobs ist `netlify dev` oder ein echtes Netlify-Deployment erforderlich.

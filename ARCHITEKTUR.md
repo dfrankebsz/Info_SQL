@@ -1,22 +1,26 @@
-# Architekturhinweise
+# Architektur
 
-## Warum zwei Speicherarten?
+Browser
+→ statischer Netlify-Kurs
+→ sql.js / SQLite-WASM für die persönliche Übungsdatenbank
 
-**sql.js / SQLite im Browser** ist die echte relationale Datenbank für SQL-Übungen. Jede Browserinstanz erhält ihren eigenen Ausgangsdatenbestand. Dadurch sind SELECT, UPDATE und DELETE vollständig ausführbar, ohne andere Lernende zu beeinflussen.
+Browser
+→ Netlify Functions
+→ Netlify Blobs für Nutzer, Klassen, Sessions und Fortschritt
 
-**Netlify Blobs** speichert dagegen nur nicht-relationale Kursdaten wie Konten, Sessions, Fortschritt, XP, Einstellungen und Checklisten. Der Browser greift nie direkt auf Blobs zu; alle Zugriffe laufen über `netlify/functions/api.mjs`.
+## Trennung der Verantwortlichkeiten
 
-## Datenspeicher in Blobs
+**SQLite/sql.js**
+- EventHub-Tabellen und Seed-Datensätze
+- echte SELECT-/UPDATE-/DELETE-Ausführung
+- Ergebnistabellen und automatische Ergebnisprüfung
+- pro Browser isoliert und jederzeit zurücksetzbar
 
-- `sqlq-classes`: eingerichtete Klassen
-- `sqlq-users`: Nutzerkonten mit Passwort-Hash und Rolle
-- `sqlq-progress`: Fortschritt pro Klasse/Nutzer-ID
-- `sqlq-sessions`: gehashte Session-Tokens
+**Netlify Blobs**
+- Nutzerkonten und Passwort-Hashes
+- Klasse und Rolle
+- Sessions
+- Aufgabenfortschritt, XP, Badges und Freischaltungen
+- Lehrerübersicht
 
-## Sicherheit
-
-- Passwörter werden mit `scrypt` + individuellem Salt gespeichert.
-- Session-Tokens werden nur gehasht als Blob-Key gespeichert.
-- Lehrkräfte können ausschließlich Schülerkonten der eigenen Klasse verwalten.
-- Der Lehrer-Setup-Code steht ausschließlich als Netlify-Environment-Variable zur Verfügung.
-- SQL der Lernenden wird nur in einer lokalen SQLite/WASM-Instanz ausgeführt, nicht auf dem Server.
+Es gibt keine Supabase-Abhängigkeit und keinen allgemeinen AUTH-Schlüssel. Der erste Lehrerzugang wird mit `TEACHER_SETUP_CODE` angelegt.

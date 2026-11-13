@@ -1,134 +1,1737 @@
 window.SQL_COURSE = {
-  meta: {
-    title: 'SQL Quest Leipzig',
-    subtitle: 'EventHub-Datenbank · SQL Schritt für Schritt',
-    version: '1.0',
-    created: '13.11.2026'
+  "meta": {
+    "title": "SQL Quest Leipzig",
+    "subtitle": "EventHub-Datenbank · SQL Schritt für Schritt",
+    "version": "2.0",
+    "created": "13.11.2026"
   },
-  chapters: [
-    {id:'start', icon:'🧭', title:'1 · Datenbank verstehen', subtitle:'Vom ER-Modell zur SQL-Abfrage',
-      intro:`<p>Die feste Kursdatenbank gehört zur fiktiven <strong>EventHub Leipzig GmbH</strong>. Sie organisiert Veranstaltungen, Orte, Kundschaft, Buchungen und Mitarbeitende. Damit knüpfen Sie an Bekanntes an: Ein <strong>Entitätstyp</strong> wird zur <strong>Tabelle</strong>, eine <strong>Entität</strong> zum <strong>Datensatz</strong> und ein <strong>Attribut</strong> zur <strong>Spalte</strong>.</p><p><strong>SQL</strong> steht für <strong>Structured Query Language</strong>. Mit SQL können Sie Daten aus relationalen Tabellen <strong>abfragen</strong> und später auch <strong>verändern oder löschen</strong>.</p>`,
-      videos:[['W3Schools · SQL Introduction','https://www.youtube.com/watch?v=zpnHsWOy0RY&list=PLP9IO4UYNF0UQkBXlTMSw0CYsxv-GDkkI&index=1'],['W3Schools · SQL Tutorial','https://www.w3schools.com/sql/default.asp']]},
-    {id:'select', icon:'🔎', title:'2 · SELECT und FROM', subtitle:'Spalten und Tabellen auswählen',
-      intro:`<p><strong>SELECT</strong> legt fest, welche Spalten ausgegeben werden. <strong>FROM</strong> legt fest, aus welcher Tabelle die Daten stammen. Mit <code>*</code> werden alle Spalten ausgewählt.</p><div class="syntax"><code>SELECT Titel, Preis<br>FROM veranstaltungen;</code></div><p>SQL-Schlüsselwörter werden hier großgeschrieben, damit die Struktur leichter erkennbar ist.</p>`,
-      videos:[['W3Schools · SELECT Video','https://www.youtube.com/watch?v=af4LckivJT8'],['W3Schools · SELECT','https://www.w3schools.com/sql/sql_select.asp']]},
-    {id:'where', icon:'🎯', title:'3 · WHERE und Vergleiche', subtitle:'Datensätze gezielt filtern',
-      intro:`<p>Mit <strong>WHERE</strong> filtern Sie Datensätze. Nur Zeilen, deren Bedingung erfüllt ist, erscheinen im Ergebnis. Textwerte stehen in <strong>einfachen Anführungszeichen</strong>.</p><div class="syntax"><code>SELECT *<br>FROM veranstaltungen<br>WHERE Kategorie = 'Tech';</code></div><p>Typische Vergleiche sind <code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code> und <code>&lt;=</code>.</p>`,
-      videos:[['W3Schools · WHERE Video','https://www.youtube.com/watch?v=L9GBpVXq-zc'],['W3Schools · WHERE','https://www.w3schools.com/sql/sql_where.asp']]},
-    {id:'order', icon:'↕️', title:'4 · ORDER BY und NOT', subtitle:'Sortieren und Bedingungen umkehren',
-      intro:`<p><strong>ORDER BY</strong> sortiert ein Ergebnis. Ohne Zusatz wird aufsteigend (<strong>ASC</strong>) sortiert; mit <strong>DESC</strong> absteigend. <strong>NOT</strong> kehrt eine Bedingung um.</p><div class="syntax"><code>SELECT *<br>FROM veranstaltungen<br>WHERE NOT Kategorie = 'Tech'<br>ORDER BY Preis DESC;</code></div>`,
-      videos:[['W3Schools · ORDER BY / Playlist','https://www.youtube.com/watch?v=uUO-ynRJKo0&list=PLP9IO4UYNF0UQkBXlTMSw0CYsxv-GDkkI&index=5'],['W3Schools · ORDER BY','https://www.w3schools.com/sql/sql_orderby.asp'],['W3Schools · SQL Videos','https://www.w3schools.com/sql/sql_videos.asp']]},
-    {id:'logic', icon:'🧩', title:'5 · LIKE, AND und OR', subtitle:'Muster und mehrere Bedingungen',
-      intro:`<p><strong>LIKE</strong> sucht nach Textmustern. Das Prozentzeichen <strong>%</strong> steht für beliebig viele Zeichen. <strong>AND</strong> verlangt, dass beide Bedingungen erfüllt sind; bei <strong>OR</strong> genügt eine der Bedingungen.</p><div class="syntax"><code>SELECT *<br>FROM veranstaltungen<br>WHERE (Kategorie = 'Gaming' OR Kategorie = 'Tech')<br>&nbsp;&nbsp;AND Titel LIKE '%a%';</code></div><p>Bei gemischten AND-/OR-Ausdrücken machen <strong>Klammern</strong> die gewünschte Logik eindeutig.</p>`,
-      videos:[['W3Schools · LIKE / AND / OR Playlist','https://www.youtube.com/watch?v=r1V39Iia4j0&list=PLP9IO4UYNF0UQkBXlTMSw0CYsxv-GDkkI&index=10'],['W3Schools · LIKE','https://www.w3schools.com/sql/sql_like.asp'],['W3Schools · AND / OR','https://www.w3schools.com/sql/sql_and_or.asp']]},
-    {id:'change', icon:'🛠️', title:'6 · UPDATE und DELETE', subtitle:'Daten sicher verändern',
-      intro:`<p><strong>UPDATE</strong> verändert vorhandene Datensätze. <strong>SET</strong> beschreibt den neuen Wert. <strong>DELETE</strong> entfernt Datensätze. Bei beiden Befehlen ist <strong>WHERE</strong> entscheidend, wenn nur bestimmte Zeilen betroffen sein sollen.</p><div class="syntax"><code>UPDATE veranstaltungen<br>SET Preis = Preis + 2<br>WHERE EventID = 12;</code></div><div class="warning"><strong>Sicherheitsregel:</strong> Prüfen Sie zuerst mit einer passenden SELECT-Abfrage, welche Zeilen Ihre WHERE-Bedingung trifft.</div>`,
-      videos:[['W3Schools · UPDATE / DELETE Playlist','https://www.youtube.com/watch?v=i5aGjhTluxo&list=PLP9IO4UYNF0UQkBXlTMSw0CYsxv-GDkkI&index=9'],['W3Schools · UPDATE','https://www.w3schools.com/sql/sql_update.asp'],['W3Schools · DELETE','https://www.w3schools.com/sql/sql_delete.asp']]}
+  "chapters": [
+    {
+      "id": "detective",
+      "icon": "🕵️",
+      "title": "1 · Der EventHub-Detektivfall",
+      "subtitle": "Filtern, bevor SQL überhaupt auftaucht",
+      "intro": "<p>Sie arbeiten zunächst wie ein Daten-Detektiv. EventHub Leipzig erhält konkrete Anfragen aus dem Betrieb. Die Daten stehen bereits in Tabellen – Ihre Aufgabe ist es, sie mit mehreren Filtern so einzugrenzen, dass nur die passenden Datensätze übrig bleiben.</p><p>Genau diese Denkweise brauchen Sie später für SQL: <strong>Welche Tabelle?</strong> · <strong>Welche Spalten?</strong> · <strong>Welche Bedingungen?</strong> · <strong>Wie sollen die Treffer sortiert werden?</strong></p><div class=\"warning\"><strong>Wichtig:</strong> In diesem Kapitel schreiben Sie noch keine SQL-Befehle. Sie lösen die Fälle mit Tabellenfiltern und formulieren die Logik in Alltagssprache.</div>",
+      "videos": []
+    },
+    {
+      "id": "model",
+      "icon": "🧭",
+      "title": "2 · Die EventHub-Datenbank",
+      "subtitle": "ER-Modell, Tabellen, Schlüssel und feste Kursdatenbank",
+      "intro": "<p>Jetzt sehen Sie die Datenbank, mit der Sie im gesamten Kurs arbeiten. Das <strong>ER-Modell</strong> zeigt Entitätstypen als <strong>Rechtecke</strong>, Beziehungen als <strong>Rauten</strong> und Attribute als <strong>Ovale</strong>. Primärschlüsselattribute sind unterstrichen.</p><p>Beim Übergang in das Relationenmodell werden aus Entitätstypen <strong>Tabellen</strong>, aus Attributen <strong>Spalten</strong> und aus n:m-Beziehungen eigene Beziehungstabellen. Aus <em>bucht</em> entsteht <strong>buchungen</strong>; aus <em>wird betreut von</em> entsteht <strong>einsaetze</strong>.</p>",
+      "videos": [
+        [
+          "W3Schools · SQL Introduction",
+          "https://www.youtube.com/watch?v=zpnHsWOy0RY&list=PLP9IO4UYNF0UQkBXlTMSw0CYsxv-GDkkI&index=1"
+        ],
+        [
+          "W3Schools · SQL Tutorial",
+          "https://www.w3schools.com/sql/default.asp"
+        ]
+      ]
+    },
+    {
+      "id": "select",
+      "icon": "🔎",
+      "title": "3 · SELECT und FROM",
+      "subtitle": "Aus Tabellen gezielt Ausgabespalten erzeugen",
+      "intro": "<p><strong>SELECT</strong> legt fest, welche Spalten im Ergebnis erscheinen. <strong>FROM</strong> legt fest, aus welcher Tabelle gelesen wird. Mit <code>*</code> werden alle Spalten ausgegeben.</p><div class=\"syntax\"><code>SELECT Titel, Preis<br>FROM veranstaltungen;</code></div><p>Ein SQL-Befehl wird auch <strong>Statement</strong> genannt. Ab jetzt werden die Hilfen schrittweise reduziert, bis Sie komplette Statements selbstständig formulieren.</p>",
+      "videos": [
+        [
+          "W3Schools · SELECT",
+          "https://www.w3schools.com/sql/sql_select.asp"
+        ],
+        [
+          "W3Schools · SQL-Videos",
+          "https://www.w3schools.com/sql/sql_videos.asp"
+        ]
+      ]
+    },
+    {
+      "id": "where",
+      "icon": "🎯",
+      "title": "4 · WHERE und Vergleiche",
+      "subtitle": "Die Filterlogik des Einstiegs als SQL formulieren",
+      "intro": "<p><strong>WHERE</strong> übernimmt in SQL die Rolle des Tabellenfilters. Nur Datensätze, deren Bedingung erfüllt ist, gelangen in die Ergebnismenge.</p><div class=\"syntax\"><code>SELECT *<br>FROM veranstaltungen<br>WHERE Kategorie = 'Tech';</code></div><p>Textwerte stehen in <strong>einfachen Anführungszeichen</strong>. Für Zahlen verwenden Sie unter anderem <code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code> und <code>&lt;=</code>.</p>",
+      "videos": [
+        [
+          "W3Schools · SELECT / WHERE",
+          "https://www.w3schools.com/sql/sql_select.asp"
+        ],
+        [
+          "W3Schools · TrySQL",
+          "https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all"
+        ]
+      ]
+    },
+    {
+      "id": "order",
+      "icon": "↕️",
+      "title": "5 · ORDER BY und NOT",
+      "subtitle": "Ergebnisse sortieren und Bedingungen umkehren",
+      "intro": "<p><strong>ORDER BY</strong> sortiert eine Ergebnismenge. Ohne Zusatz wird aufsteigend sortiert; <strong>DESC</strong> kehrt die Sortierung um. <strong>NOT</strong> verneint eine Bedingung.</p><div class=\"syntax\"><code>SELECT Titel, Preis<br>FROM veranstaltungen<br>WHERE NOT Kategorie = 'Tech'<br>ORDER BY Preis DESC;</code></div>",
+      "videos": [
+        [
+          "W3Schools · ORDER BY Video",
+          "https://www.youtube.com/watch?v=uUO-ynRJKo0&list=PLP9IO4UYNF0UQkBXlTMSw0CYsxv-GDkkI&index=5"
+        ],
+        [
+          "W3Schools · ORDER BY",
+          "https://www.w3schools.com/sql/sql_orderby.asp"
+        ]
+      ]
+    },
+    {
+      "id": "logic",
+      "icon": "🧩",
+      "title": "6 · LIKE, AND und OR",
+      "subtitle": "Muster und mehrere Filterbedingungen kombinieren",
+      "intro": "<p><strong>LIKE</strong> sucht nach Textmustern; das Prozentzeichen <strong>%</strong> steht für beliebig viele Zeichen. Mit <strong>AND</strong> müssen beide Bedingungen stimmen, mit <strong>OR</strong> mindestens eine.</p><div class=\"syntax\"><code>SELECT *<br>FROM veranstaltungen<br>WHERE (Kategorie = 'Gaming' OR Kategorie = 'Sport')<br>&nbsp;&nbsp;AND Preis &lt; 15;</code></div><p>Bei gemischten AND-/OR-Ausdrücken sind <strong>Klammern</strong> wichtig, damit die gewünschte Logik eindeutig ist.</p>",
+      "videos": [
+        [
+          "W3Schools · LIKE / AND / OR Video",
+          "https://www.youtube.com/watch?v=r1V39Iia4j0&list=PLP9IO4UYNF0UQkBXlTMSw0CYsxv-GDkkI&index=10"
+        ],
+        [
+          "W3Schools · LIKE",
+          "https://www.w3schools.com/sql/sql_like.asp"
+        ],
+        [
+          "W3Schools · AND / OR",
+          "https://www.w3schools.com/sql/sql_and_or.asp"
+        ]
+      ]
+    },
+    {
+      "id": "change",
+      "icon": "🛠️",
+      "title": "7 · UPDATE und DELETE",
+      "subtitle": "Daten gezielt verändern und sicher löschen",
+      "intro": "<p><strong>UPDATE</strong> verändert bestehende Datensätze. Mit <strong>SET</strong> legen Sie neue Werte fest. <strong>DELETE</strong> entfernt Datensätze.</p><div class=\"syntax\"><code>UPDATE veranstaltungen<br>SET Preis = Preis + 2<br>WHERE EventID = 12;</code></div><div class=\"warning\"><strong>Sicherheitsregel:</strong> Prüfen Sie vor UPDATE oder DELETE mit einer SELECT-Abfrage, welche Datensätze Ihre WHERE-Bedingung tatsächlich trifft.</div>",
+      "videos": [
+        [
+          "W3Schools · UPDATE / DELETE Video",
+          "https://www.youtube.com/watch?v=i5aGjhTluxo&list=PLP9IO4UYNF0UQkBXlTMSw0CYsxv-GDkkI&index=9"
+        ],
+        [
+          "W3Schools · UPDATE",
+          "https://www.w3schools.com/sql/sql_update.asp"
+        ],
+        [
+          "W3Schools · DELETE",
+          "https://www.w3schools.com/sql/sql_delete.asp"
+        ]
+      ]
+    }
   ],
-  tasks: [
-    {id:'s1',chapter:'start',title:'Vom ER-Modell zur Tabelle',afb:'I',type:'single',rowHint:'0 – Theorieaufgabe',prompt:'Welche Zuordnung ist im relationalen Datenbankmodell fachlich korrekt?',options:[['A','Entitätstyp → Tabelle'],['B','Entitätstyp → einzelne Zelle'],['C','Attribut → Datensatz'],['D','Entität → Tabellenname']],correct:['A'],solution:'Ein <strong>Entitätstyp</strong> wird als <strong>Tabelle</strong> umgesetzt.'},
-    {id:'s2',chapter:'start',title:'Begriffe zuordnen',afb:'I',type:'drag',rowHint:'0 – Theorieaufgabe',prompt:'Ordnen Sie die drei bekannten ER-/Relationenmodell-Begriffe zu.',pairs:[['Entitätstyp','Tabelle'],['Entität','Datensatz / Zeile'],['Attribut','Spalte / Feld']],solution:'Entitätstyp → Tabelle; Entität → Datensatz/Zeile; Attribut → Spalte/Feld.'},
-    {id:'s3',chapter:'start',title:'Schlüssel in BUCHUNGEN',afb:'II',type:'multi',rowHint:'0 – Theorieaufgabe',prompt:'Welche Aussagen zur Tabelle <code>buchungen</code> sind korrekt?',options:[['A','BuchungID ist Primärschlüssel.'],['B','KundenID ist Fremdschlüssel auf kunden.KundenID.'],['C','EventID ist Fremdschlüssel auf veranstaltungen.EventID.'],['D','AnzahlTickets ist ein Fremdschlüssel.']],correct:['A','B','C'],solution:'BuchungID ist PK; KundenID und EventID sind FKs. AnzahlTickets beschreibt die konkrete Buchung.'},
-    {id:'s4',chapter:'start',title:'Erste echte Abfrage',afb:'II',type:'sql',rowHint:'7 Ergebniszeilen',prompt:'Geben Sie <strong>alle Informationen zu allen Orten</strong> aus.',starter:'SELECT *\nFROM ;',expectedSql:'SELECT * FROM orte;',solution:'SELECT *\nFROM orte;'},
-    {id:'s5',chapter:'start',title:'ERM → Relationenmodell → SQL',afb:'II',type:'free',rowHint:'0 – Theorieaufgabe',prompt:'Erklären Sie kurz den Zusammenhang zwischen ER-Modell, Relationenmodell und einer SQL-Abfrage.',solution:'Das ER-Modell beschreibt Entitätstypen, Attribute und Beziehungen. Im Relationenmodell werden daraus Tabellen mit Spalten sowie Primär-/Fremdschlüsseln. SQL greift anschließend auf diese relationalen Tabellen zu, um Daten abzufragen oder zu verändern.'},
-    {id:'s6',chapter:'start',title:'Warum gibt es BUCHUNGEN?',afb:'III',type:'free',rowHint:'0 – Theorieaufgabe',prompt:'Beurteilen Sie, warum die Beziehung zwischen <strong>kunden</strong> und <strong>veranstaltungen</strong> über die eigene Tabelle <strong>buchungen</strong> abgebildet wird. Beziehen Sie auch eigene Attribute der Buchung ein.',solution:'Ein Kunde kann mehrere Veranstaltungen buchen und eine Veranstaltung kann von mehreren Kunden gebucht werden. Die n:m-Beziehung wird deshalb durch die Beziehungstabelle buchungen aufgelöst. Dort stehen die Fremdschlüssel KundenID und EventID sowie eigene Attribute wie AnzahlTickets, Buchungsdatum und Status.'},
-
-    {id:'q1',chapter:'select',title:'Was macht SELECT?',afb:'I',type:'single',rowHint:'0 – Theorieaufgabe',prompt:'Welche Aufgabe hat <code>SELECT</code>?',options:[['A','Es legt die auszugebenden Spalten fest.'],['B','Es löscht Datensätze.'],['C','Es sortiert automatisch absteigend.'],['D','Es legt einen Fremdschlüssel an.']],correct:['A'],solution:'SELECT bestimmt, welche Spalten im Abfrageergebnis erscheinen.'},
-    {id:'q2',chapter:'select',title:'Syntax in Reihenfolge',afb:'I',type:'sequence',rowHint:'0 – Theorieaufgabe',prompt:'Bringen Sie die Bestandteile einer einfachen Abfrage in die richtige Reihenfolge.',items:['SELECT Titel, Preis','FROM veranstaltungen',';'],correctOrder:['SELECT Titel, Preis','FROM veranstaltungen',';'],solution:'<code>SELECT Titel, Preis FROM veranstaltungen;</code>'},
-    {id:'q3',chapter:'select',title:'Alle Veranstaltungen',afb:'II',type:'sql',rowHint:'20 Ergebniszeilen',prompt:'Geben Sie alle Informationen zu allen Veranstaltungen aus.',starter:'SELECT *\nFROM ;',expectedSql:'SELECT * FROM veranstaltungen;',solution:'SELECT *\nFROM veranstaltungen;'},
-    {id:'q4',chapter:'select',title:'Nur Titel und Preis',afb:'II',type:'sql',rowHint:'20 Ergebniszeilen',prompt:'Geben Sie für alle Veranstaltungen ausschließlich <strong>Titel</strong> und <strong>Preis</strong> aus.',starter:'SELECT \nFROM veranstaltungen;',expectedSql:'SELECT Titel, Preis FROM veranstaltungen;',solution:'SELECT Titel, Preis\nFROM veranstaltungen;'},
-    {id:'q5',chapter:'select',title:'Mitarbeitende anzeigen',afb:'II',type:'sql',rowHint:'12 Ergebniszeilen',prompt:'Geben Sie alle Informationen aus der Tabelle <strong>mitarbeitende</strong> aus.',starter:'SELECT *\nFROM ;',expectedSql:'SELECT * FROM mitarbeitende;',solution:'SELECT *\nFROM mitarbeitende;'},
-    {id:'q6',chapter:'select',title:'Ausgabe für einen Event-Flyer',afb:'III',type:'sql',rowHint:'20 Ergebniszeilen',prompt:'Für einen internen Event-Flyer werden nur <strong>Titel, Kategorie und Datum</strong> benötigt. Erzeugen Sie genau diese Ausgabetabelle für alle Veranstaltungen.',starter:'SELECT \nFROM veranstaltungen;',expectedSql:'SELECT Titel, Kategorie, Datum FROM veranstaltungen;',solution:'SELECT Titel, Kategorie, Datum\nFROM veranstaltungen;'},
-
-    {id:'w1',chapter:'where',title:'Aufgabe von WHERE',afb:'I',type:'single',rowHint:'0 – Theorieaufgabe',prompt:'Was bewirkt die WHERE-Klausel?',options:[['A','Sie filtert Zeilen anhand einer Bedingung.'],['B','Sie wählt die Datenbankdatei aus.'],['C','Sie benennt eine Tabelle um.'],['D','Sie sortiert immer alphabetisch.']],correct:['A'],solution:'WHERE filtert Datensätze. Nur Zeilen, die die Bedingung erfüllen, bleiben im Ergebnis.'},
-    {id:'w2',chapter:'where',title:'Textwerte in Bedingungen',afb:'I',type:'tf',rowHint:'0 – Theorieaufgabe',prompt:"Die Bedingung <code>WHERE Kategorie = 'Tech'</code> verwendet für den Textwert einfache Anführungszeichen.",correct:['true'],solution:'Richtig. Textwerte werden in SQL in einfachen Anführungszeichen notiert.'},
-    {id:'w3',chapter:'where',title:'Tech-Veranstaltungen',afb:'II',type:'sql',rowHint:'3 Ergebniszeilen',prompt:'Geben Sie alle Veranstaltungen aus, deren Kategorie <strong>Tech</strong> ist.',starter:'SELECT *\nFROM veranstaltungen\nWHERE ;',expectedSql:"SELECT * FROM veranstaltungen WHERE Kategorie='Tech';",solution:"SELECT *\nFROM veranstaltungen\nWHERE Kategorie = 'Tech';"},
-    {id:'w4',chapter:'where',title:'Preis über 15 €',afb:'II',type:'sql',rowHint:'5 Ergebniszeilen',prompt:'Geben Sie alle Veranstaltungen aus, deren Preis <strong>größer als 15</strong> ist.',starter:'SELECT *\nFROM veranstaltungen\nWHERE ;',expectedSql:'SELECT * FROM veranstaltungen WHERE Preis > 15;',solution:'SELECT *\nFROM veranstaltungen\nWHERE Preis > 15;'},
-    {id:'w5',chapter:'where',title:'Kundschaft aus Leipzig',afb:'II',type:'sql',rowHint:'10 Ergebniszeilen',prompt:'Geben Sie alle Datensätze der Kundschaft aus <strong>Leipzig</strong> aus.',starter:'SELECT *\nFROM kunden\nWHERE ;',expectedSql:"SELECT * FROM kunden WHERE Stadt='Leipzig';",solution:"SELECT *\nFROM kunden\nWHERE Stadt = 'Leipzig';"},
-    {id:'w6',chapter:'where',title:'Fehleranalyse: Text ohne Anführungszeichen',afb:'III',type:'free',rowHint:'3 Datensätze nach der Korrektur',prompt:'Ein Kollege schreibt <code>SELECT Titel FROM veranstaltungen WHERE Kategorie = Tech;</code>. Erklären Sie den Fehler und formulieren Sie die korrigierte Abfrage.',solution:"Der Textwert Tech muss in einfachen Anführungszeichen stehen. Korrekt: <code>SELECT Titel FROM veranstaltungen WHERE Kategorie = 'Tech';</code>"},
-
-    {id:'o1',chapter:'order',title:'ASC oder DESC?',afb:'I',type:'single',rowHint:'0 – Theorieaufgabe',prompt:'Wie wird <code>ORDER BY Preis</code> ohne weiteren Zusatz sortiert?',options:[['A','Aufsteigend (ASC)'],['B','Absteigend (DESC)'],['C','Zufällig'],['D','Nach der Primärschlüsselspalte']],correct:['A'],solution:'Ohne DESC sortiert ORDER BY aufsteigend; ASC kann ausdrücklich angegeben werden.'},
-    {id:'o2',chapter:'order',title:'Klauseln ordnen',afb:'I',type:'sequence',rowHint:'0 – Theorieaufgabe',prompt:'Bringen Sie die Klauseln in eine sinnvolle Reihenfolge.',items:['SELECT *','FROM veranstaltungen','WHERE Preis > 10','ORDER BY Preis DESC',';'],correctOrder:['SELECT *','FROM veranstaltungen','WHERE Preis > 10','ORDER BY Preis DESC',';'],solution:'<code>SELECT * FROM veranstaltungen WHERE Preis &gt; 10 ORDER BY Preis DESC;</code>'},
-    {id:'o3',chapter:'order',title:'Nach Preis sortieren',afb:'II',type:'sql',rowHint:'20 Ergebniszeilen',prompt:'Geben Sie alle Veranstaltungen aus und sortieren Sie sie <strong>aufsteigend nach Preis</strong>.',starter:'SELECT *\nFROM veranstaltungen\nORDER BY ;',expectedSql:'SELECT * FROM veranstaltungen ORDER BY Preis ASC;',orderSensitive:true,solution:'SELECT *\nFROM veranstaltungen\nORDER BY Preis ASC;'},
-    {id:'o4',chapter:'order',title:'Nicht Tech',afb:'II',type:'sql',rowHint:'17 Ergebniszeilen',prompt:'Geben Sie alle Veranstaltungen aus, die <strong>nicht</strong> zur Kategorie Tech gehören.',starter:'SELECT *\nFROM veranstaltungen\nWHERE NOT ;',expectedSql:"SELECT * FROM veranstaltungen WHERE NOT Kategorie='Tech';",solution:"SELECT *\nFROM veranstaltungen\nWHERE NOT Kategorie = 'Tech';"},
-    {id:'o5',chapter:'order',title:'Nicht Leipzig, aber sortiert',afb:'II',type:'sql',rowHint:'14 Ergebniszeilen',prompt:'Geben Sie alle Kundendatensätze aus, deren Stadt <strong>nicht Leipzig</strong> ist. Sortieren Sie zuerst nach Stadt und anschließend nach Name.',starter:'SELECT *\nFROM kunden\nWHERE NOT \nORDER BY ;',expectedSql:"SELECT * FROM kunden WHERE NOT Stadt='Leipzig' ORDER BY Stadt, Name;",orderSensitive:true,solution:"SELECT *\nFROM kunden\nWHERE NOT Stadt = 'Leipzig'\nORDER BY Stadt, Name;"},
-    {id:'o6',chapter:'order',title:'Höchstens 20 € mit NOT',afb:'III',type:'sql',rowHint:'17 Ergebniszeilen',prompt:'Geben Sie alle Veranstaltungen aus, deren Preis <strong>nicht größer als 20</strong> ist. Sortieren Sie aufsteigend nach Preis.',starter:'SELECT *\nFROM veranstaltungen\nWHERE NOT \nORDER BY ;',expectedSql:'SELECT * FROM veranstaltungen WHERE NOT Preis > 20 ORDER BY Preis;',orderSensitive:true,solution:'SELECT *\nFROM veranstaltungen\nWHERE NOT Preis > 20\nORDER BY Preis;'},
-
-    {id:'l1',chapter:'logic',title:'Wildcard %',afb:'I',type:'single',rowHint:'0 – Theorieaufgabe',prompt:'Wofür steht <code>%</code> in einem LIKE-Muster?',options:[['A','Für beliebig viele Zeichen'],['B','Nur für genau eine Ziffer'],['C','Für ein Semikolon'],['D','Für eine Sortierreihenfolge']],correct:['A'],solution:'% steht bei LIKE für beliebig viele Zeichen.'},
-    {id:'l2',chapter:'logic',title:'Logische Operatoren',afb:'I',type:'multi',rowHint:'0 – Theorieaufgabe',prompt:'Welche Aussagen sind korrekt?',options:[['A','AND verlangt, dass beide verbundenen Bedingungen erfüllt sind.'],['B','OR genügt, wenn mindestens eine verbundene Bedingung erfüllt ist.'],['C','Klammern können die gewünschte logische Gruppierung deutlich machen.'],['D','LIKE löscht passende Datensätze.']],correct:['A','B','C'],solution:'AND verbindet notwendige Bedingungen, OR Alternativen; Klammern steuern bzw. verdeutlichen die Gruppierung. LIKE dient der Mustersuche.'},
-    {id:'l3',chapter:'logic',title:'Titel beginnt mit G',afb:'II',type:'sql',rowHint:'2 Ergebniszeilen',prompt:'Geben Sie alle Veranstaltungen aus, deren Titel mit dem Buchstaben <strong>G</strong> beginnt.',starter:'SELECT *\nFROM veranstaltungen\nWHERE Titel LIKE ;',expectedSql:"SELECT * FROM veranstaltungen WHERE Titel LIKE 'G%';",solution:"SELECT *\nFROM veranstaltungen\nWHERE Titel LIKE 'G%';"},
-    {id:'l4',chapter:'logic',title:'Gaming oder Tech',afb:'II',type:'sql',rowHint:'6 Ergebniszeilen',prompt:'Geben Sie alle Veranstaltungen aus, deren Kategorie <strong>Gaming ODER Tech</strong> ist.',starter:'SELECT *\nFROM veranstaltungen\nWHERE ;',expectedSql:"SELECT * FROM veranstaltungen WHERE Kategorie='Gaming' OR Kategorie='Tech';",solution:"SELECT *\nFROM veranstaltungen\nWHERE Kategorie = 'Gaming' OR Kategorie = 'Tech';"},
-    {id:'l5',chapter:'logic',title:'Gaming unter 20 €',afb:'II',type:'sql',rowHint:'2 Ergebniszeilen',prompt:'Geben Sie alle Gaming-Veranstaltungen aus, deren Preis <strong>unter 20</strong> liegt.',starter:'SELECT *\nFROM veranstaltungen\nWHERE ;',expectedSql:"SELECT * FROM veranstaltungen WHERE Kategorie='Gaming' AND Preis<20;",solution:"SELECT *\nFROM veranstaltungen\nWHERE Kategorie = 'Gaming' AND Preis < 20;"},
-    {id:'l6',chapter:'logic',title:'Komplexer Filter',afb:'III',type:'sql',rowHint:'4 Ergebniszeilen',prompt:'Geben Sie Veranstaltungen aus, die zur Kategorie <strong>Gaming oder Tech</strong> gehören, <strong>unter 20 €</strong> kosten und im Titel den Buchstaben <strong>a</strong> enthalten. Sortieren Sie absteigend nach Preis.',starter:'SELECT *\nFROM veranstaltungen\nWHERE \nORDER BY ;',expectedSql:"SELECT * FROM veranstaltungen WHERE (Kategorie='Gaming' OR Kategorie='Tech') AND Preis<20 AND Titel LIKE '%a%' ORDER BY Preis DESC;",orderSensitive:true,solution:"SELECT *\nFROM veranstaltungen\nWHERE (Kategorie = 'Gaming' OR Kategorie = 'Tech')\n  AND Preis < 20\n  AND Titel LIKE '%a%'\nORDER BY Preis DESC;"},
-
-    {id:'c1',chapter:'change',title:'UPDATE oder DELETE?',afb:'I',type:'single',rowHint:'0 – Theorieaufgabe',prompt:'Welcher Befehl verändert Werte in bereits vorhandenen Datensätzen, ohne die Datensätze selbst zu entfernen?',options:[['A','UPDATE'],['B','DELETE'],['C','ORDER BY'],['D','SELECT']],correct:['A'],solution:'UPDATE verändert vorhandene Werte. DELETE entfernt Datensätze.'},
-    {id:'c2',chapter:'change',title:'WHERE bei Änderungen',afb:'I',type:'tf',rowHint:'0 – Theorieaufgabe',prompt:'Ein UPDATE- oder DELETE-Befehl ohne WHERE kann alle Datensätze einer Tabelle betreffen.',correct:['true'],solution:'Richtig. Ohne WHERE ist die Änderung nicht auf bestimmte Zeilen eingeschränkt.'},
-    {id:'c3',chapter:'change',title:'Eintrittspreis anpassen',afb:'II',type:'sql',mode:'mutation',rowHint:'1 Datensatz wird geändert',prompt:'Erhöhen Sie den Preis der Veranstaltung mit <strong>EventID 12</strong> um <strong>2 €</strong>.',starter:'UPDATE veranstaltungen\nSET Preis = \nWHERE ;',expectedSql:'UPDATE veranstaltungen SET Preis = Preis + 2 WHERE EventID = 12;',verifySql:'SELECT * FROM veranstaltungen ORDER BY EventID;',solution:'UPDATE veranstaltungen\nSET Preis = Preis + 2\nWHERE EventID = 12;'},
-    {id:'c4',chapter:'change',title:'Gaming-Preise erhöhen',afb:'II',type:'sql',mode:'mutation',rowHint:'3 Datensätze werden geändert',prompt:'Erhöhen Sie die Preise aller Veranstaltungen der Kategorie <strong>Gaming</strong> um <strong>10 %</strong>.',starter:'UPDATE veranstaltungen\nSET Preis = \nWHERE ;',expectedSql:"UPDATE veranstaltungen SET Preis = Preis * 1.10 WHERE Kategorie = 'Gaming';",verifySql:'SELECT * FROM veranstaltungen ORDER BY EventID;',solution:"UPDATE veranstaltungen\nSET Preis = Preis * 1.10\nWHERE Kategorie = 'Gaming';"},
-    {id:'c5',chapter:'change',title:'Stornierte Buchung löschen',afb:'II',type:'sql',mode:'mutation',rowHint:'1 Datensatz wird gelöscht',prompt:'Löschen Sie alle Buchungen mit dem Status <strong>storniert</strong>.',starter:'DELETE FROM buchungen\nWHERE ;',expectedSql:"DELETE FROM buchungen WHERE Status='storniert';",verifySql:'SELECT * FROM buchungen ORDER BY BuchungID;',solution:"DELETE FROM buchungen\nWHERE Status = 'storniert';"},
-    {id:'c6',chapter:'change',title:'Gezielt löschen',afb:'III',type:'sql',mode:'mutation',rowHint:'1 Datensatz wird gelöscht',prompt:'Löschen Sie die Veranstaltung, deren Titel mit <strong>Summer</strong> beginnt, zur Kategorie <strong>Gaming</strong> gehört und weniger als <strong>15 €</strong> kostet.',starter:'DELETE FROM veranstaltungen\nWHERE ;',expectedSql:"DELETE FROM veranstaltungen WHERE Titel LIKE 'Summer%' AND Kategorie='Gaming' AND Preis<15;",verifySql:'SELECT * FROM veranstaltungen ORDER BY EventID;',solution:"DELETE FROM veranstaltungen\nWHERE Titel LIKE 'Summer%'\n  AND Kategorie = 'Gaming'\n  AND Preis < 15;"},
-
-    {id:'t1',chapter:'test',title:'Test 1 · Bezahlte Buchungen',afb:'II',type:'sql',isTest:true,rowHint:'25 Ergebniszeilen',prompt:'Geben Sie alle bezahlten Buchungen aus.',starter:'SELECT *\nFROM buchungen\nWHERE ;',expectedSql:"SELECT * FROM buchungen WHERE Status='bezahlt';",solution:"SELECT *\nFROM buchungen\nWHERE Status = 'bezahlt';"},
-    {id:'t2',chapter:'test',title:'Test 2 · Teure Veranstaltungen',afb:'II',type:'sql',isTest:true,rowHint:'5 Ergebniszeilen',prompt:'Geben Sie alle Veranstaltungen mit einem Preis über 15 € aus und sortieren Sie absteigend nach Preis.',starter:'SELECT *\nFROM veranstaltungen\nWHERE \nORDER BY ;',expectedSql:'SELECT * FROM veranstaltungen WHERE Preis>15 ORDER BY Preis DESC;',orderSensitive:true,solution:'SELECT *\nFROM veranstaltungen\nWHERE Preis > 15\nORDER BY Preis DESC;'},
-    {id:'t3',chapter:'test',title:'Test 3 · Firmenkunden',afb:'II',type:'sql',isTest:true,rowHint:'5 Ergebniszeilen',prompt:'Geben Sie alle Kundendatensätze mit dem Kundentyp <strong>Firma</strong> aus.',starter:'SELECT *\nFROM kunden\nWHERE ;',expectedSql:"SELECT * FROM kunden WHERE Kundentyp='Firma';",solution:"SELECT *\nFROM kunden\nWHERE Kundentyp = 'Firma';"},
-    {id:'t4',chapter:'test',title:'Test 4 · Titel mit a',afb:'II',type:'sql',isTest:true,rowHint:'17 Ergebniszeilen',prompt:'Geben Sie alle Veranstaltungen aus, deren Titel den Buchstaben <strong>a</strong> enthält.',starter:'SELECT *\nFROM veranstaltungen\nWHERE Titel LIKE ;',expectedSql:"SELECT * FROM veranstaltungen WHERE Titel LIKE '%a%';",solution:"SELECT *\nFROM veranstaltungen\nWHERE Titel LIKE '%a%';"},
-    {id:'t5',chapter:'test',title:'Test 5 · Aktive Mitarbeitende außerhalb Service',afb:'II',type:'sql',isTest:true,rowHint:'9 Ergebniszeilen',prompt:'Geben Sie alle aktiven Mitarbeitenden aus, die <strong>nicht</strong> im Bereich Service arbeiten.',starter:'SELECT *\nFROM mitarbeitende\nWHERE ;',expectedSql:"SELECT * FROM mitarbeitende WHERE Aktiv=1 AND NOT Bereich='Service';",solution:"SELECT *\nFROM mitarbeitende\nWHERE Aktiv = 1 AND NOT Bereich = 'Service';"},
-    {id:'t6',chapter:'test',title:'Test 6 · Kostenlose Veranstaltungen',afb:'II',type:'sql',isTest:true,rowHint:'3 Ergebniszeilen',prompt:'Geben Sie alle kostenlosen Veranstaltungen aus und sortieren Sie alphabetisch nach Titel.',starter:'SELECT *\nFROM veranstaltungen\nWHERE \nORDER BY ;',expectedSql:'SELECT * FROM veranstaltungen WHERE Preis=0 ORDER BY Titel;',orderSensitive:true,solution:'SELECT *\nFROM veranstaltungen\nWHERE Preis = 0\nORDER BY Titel;'},
-    {id:'t7',chapter:'test',title:'Test 7 · Mehrfachbedingung',afb:'III',type:'sql',isTest:true,rowHint:'4 Ergebniszeilen',prompt:'Geben Sie Veranstaltungen aus, die Gaming oder Tech sind, weniger als 20 € kosten und im Titel ein <strong>a</strong> enthalten. Sortieren Sie absteigend nach Preis.',starter:'SELECT *\nFROM veranstaltungen\nWHERE \nORDER BY ;',expectedSql:"SELECT * FROM veranstaltungen WHERE (Kategorie='Gaming' OR Kategorie='Tech') AND Preis<20 AND Titel LIKE '%a%' ORDER BY Preis DESC;",orderSensitive:true,solution:"SELECT *\nFROM veranstaltungen\nWHERE (Kategorie = 'Gaming' OR Kategorie = 'Tech')\n  AND Preis < 20\n  AND Titel LIKE '%a%'\nORDER BY Preis DESC;"},
-    {id:'t8',chapter:'test',title:'Test 8 · Kundensuche',afb:'III',type:'sql',isTest:true,rowHint:'11 Ergebniszeilen',prompt:'Geben Sie alle Kunden aus Leipzig oder Dresden aus, deren Name den Buchstaben <strong>a</strong> enthält.',starter:'SELECT *\nFROM kunden\nWHERE ;',expectedSql:"SELECT * FROM kunden WHERE (Stadt='Leipzig' OR Stadt='Dresden') AND Name LIKE '%a%';",solution:"SELECT *\nFROM kunden\nWHERE (Stadt = 'Leipzig' OR Stadt = 'Dresden')\n  AND Name LIKE '%a%';"},
-    {id:'t9',chapter:'test',title:'Test 9 · Food-Preise anpassen',afb:'III',type:'sql',isTest:true,mode:'mutation',rowHint:'2 Datensätze werden geändert',prompt:'Erhöhen Sie die Preise aller Veranstaltungen der Kategorie Food um <strong>2 €</strong>.',starter:'UPDATE veranstaltungen\nSET Preis = \nWHERE ;',expectedSql:"UPDATE veranstaltungen SET Preis = Preis + 2 WHERE Kategorie='Food';",verifySql:'SELECT * FROM veranstaltungen ORDER BY EventID;',solution:"UPDATE veranstaltungen\nSET Preis = Preis + 2\nWHERE Kategorie = 'Food';"},
-    {id:'t10',chapter:'test',title:'Test 10 · Gezieltes Löschen',afb:'III',type:'sql',isTest:true,mode:'mutation',rowHint:'1 Datensatz wird gelöscht',prompt:'Löschen Sie ausschließlich die Veranstaltung mit der EventID <strong>20</strong>.',starter:'DELETE FROM veranstaltungen\nWHERE ;',expectedSql:'DELETE FROM veranstaltungen WHERE EventID=20;',verifySql:'SELECT * FROM veranstaltungen ORDER BY EventID;',solution:'DELETE FROM veranstaltungen\nWHERE EventID = 20;'},
-    {id:'t11',chapter:'test',title:'Test 11 · Sicherheitsbeurteilung',afb:'III',type:'free',isTest:true,rowHint:'0 – Theorieaufgabe',prompt:'Beurteilen Sie, warum <code>DELETE FROM buchungen;</code> in einem produktiven System besonders riskant ist. Nennen Sie eine sichere Vorgehensweise.',solution:'Ohne WHERE löscht DELETE alle Datensätze der Tabelle. Sicherer ist, die gewünschte Bedingung zuerst mit SELECT zu testen und anschließend dieselbe WHERE-Bedingung im DELETE zu verwenden. Zusätzlich sind Backups bzw. Transaktionen in realen Systemen sinnvoll.'},
-    {id:'t12',chapter:'test',title:'Test 12 · Mehrere Datensätze gezielt ändern',afb:'III',type:'sql',isTest:true,mode:'mutation',rowHint:'3 Datensätze werden geändert',prompt:'Ändern Sie bei allen Firmenkunden aus Leipzig die Stadt auf <strong>Leipzig Zentrum</strong>.',starter:'UPDATE kunden\nSET Stadt = \nWHERE ;',expectedSql:"UPDATE kunden SET Stadt='Leipzig Zentrum' WHERE Stadt='Leipzig' AND Kundentyp='Firma';",verifySql:'SELECT * FROM kunden ORDER BY KundenID;',solution:"UPDATE kunden\nSET Stadt = 'Leipzig Zentrum'\nWHERE Stadt = 'Leipzig' AND Kundentyp = 'Firma';"}
+  "tasks": [
+    {
+      "id": "d1",
+      "chapter": "detective",
+      "title": "Fall 1 · Günstiger Tech-Support",
+      "afb": "II",
+      "type": "filter",
+      "rowHint": "2 Treffer",
+      "prompt": "Für eine interne Schulkooperation werden nur <strong>Tech-Veranstaltungen mit einem Preis von höchstens 10 €</strong> gesucht. Filtern Sie die Veranstaltungstabelle passend.",
+      "solution": "Filter: Kategorie = Tech UND Preis ≤ 10. Treffer: EventID 5 „Code & Coffee“ und EventID 12 „Tech Repair Café“.",
+      "filterSpec": {
+        "table": "veranstaltungen",
+        "idField": "EventID",
+        "columns": [
+          "EventID",
+          "Titel",
+          "Kategorie",
+          "Preis",
+          "Datum"
+        ],
+        "expectedIds": [
+          5,
+          12
+        ],
+        "controls": [
+          {
+            "key": "Kategorie",
+            "label": "Kategorie",
+            "type": "select",
+            "column": "Kategorie",
+            "op": "=",
+            "options": [
+              "",
+              "Tech",
+              "Gaming",
+              "Sport",
+              "Karriere",
+              "Musik",
+              "Business",
+              "Food",
+              "Nachhaltigkeit",
+              "Kultur",
+              "Medien"
+            ]
+          },
+          {
+            "key": "maxPreis",
+            "label": "Preis höchstens",
+            "type": "number",
+            "column": "Preis",
+            "op": "<="
+          }
+        ]
+      }
+    },
+    {
+      "id": "d2",
+      "chapter": "detective",
+      "title": "Fall 2 · Jugendkampagne",
+      "afb": "II",
+      "type": "filter",
+      "rowHint": "3 Treffer",
+      "prompt": "Für eine Social-Media-Kampagne werden Veranstaltungen aus <strong>Gaming ODER Sport</strong> gesucht. Zusätzlich soll der Preis <strong>unter 15 €</strong> liegen.",
+      "solution": "Filter: Kategorie = Gaming ODER Sport; zusätzlich Preis < 15. Treffer: EventID 10, 17 und 20.",
+      "filterSpec": {
+        "table": "veranstaltungen",
+        "idField": "EventID",
+        "columns": [
+          "EventID",
+          "Titel",
+          "Kategorie",
+          "Preis"
+        ],
+        "expectedIds": [
+          10,
+          17,
+          20
+        ],
+        "controls": [
+          {
+            "key": "Kategorien",
+            "label": "Kategorien",
+            "type": "multiselect",
+            "column": "Kategorie",
+            "op": "in",
+            "options": [
+              "Gaming",
+              "Sport",
+              "Tech",
+              "Musik",
+              "Business"
+            ]
+          },
+          {
+            "key": "maxPreis",
+            "label": "Preis kleiner als",
+            "type": "number",
+            "column": "Preis",
+            "op": "<"
+          }
+        ]
+      }
+    },
+    {
+      "id": "d3",
+      "chapter": "detective",
+      "title": "Fall 3 · Auffällige Großbuchungen",
+      "afb": "III",
+      "type": "filter",
+      "rowHint": "3 Treffer",
+      "prompt": "Die Buchhaltung prüft <strong>bezahlte Buchungen mit mindestens 8 Tickets</strong>, die <strong>ab dem 10.11.2026</strong> eingegangen sind. Kombinieren Sie alle drei Filter.",
+      "solution": "Filter: Status = bezahlt UND AnzahlTickets ≥ 8 UND Buchungsdatum ≥ 2026-11-10. Treffer: BuchungID 15, 28 und 30.",
+      "filterSpec": {
+        "table": "buchungen",
+        "idField": "BuchungID",
+        "columns": [
+          "BuchungID",
+          "KundenID",
+          "EventID",
+          "AnzahlTickets",
+          "Buchungsdatum",
+          "Status"
+        ],
+        "expectedIds": [
+          15,
+          28,
+          30
+        ],
+        "controls": [
+          {
+            "key": "Status",
+            "label": "Status",
+            "type": "select",
+            "column": "Status",
+            "op": "=",
+            "options": [
+              "",
+              "bezahlt",
+              "reserviert",
+              "storniert"
+            ]
+          },
+          {
+            "key": "minTickets",
+            "label": "Tickets mindestens",
+            "type": "number",
+            "column": "AnzahlTickets",
+            "op": ">="
+          },
+          {
+            "key": "datumAb",
+            "label": "Buchungsdatum ab",
+            "type": "date",
+            "column": "Buchungsdatum",
+            "op": ">="
+          }
+        ]
+      }
+    },
+    {
+      "id": "d4",
+      "chapter": "detective",
+      "title": "Vom Tabellenfilter zu SQL",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Welche SQL-Klausel übernimmt später im Wesentlichen die Aufgabe eines Tabellenfilters?",
+      "options": [
+        [
+          "A",
+          "WHERE"
+        ],
+        [
+          "B",
+          "FROM"
+        ],
+        [
+          "C",
+          "SELECT"
+        ],
+        [
+          "D",
+          "DELETE"
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "<strong>WHERE</strong> filtert Datensätze anhand einer oder mehrerer Bedingungen."
+    },
+    {
+      "id": "d5",
+      "chapter": "detective",
+      "title": "Filterlogik beschreiben",
+      "afb": "II",
+      "type": "free",
+      "rowHint": "0 – Reflexionsaufgabe",
+      "prompt": "Erklären Sie anhand eines der drei Fälle, warum eine einzige Filterbedingung häufig nicht ausreicht und weshalb die Bedingungen eindeutig miteinander verknüpft werden müssen.",
+      "solution": "Bei realen Anfragen gelten oft mehrere Merkmale gleichzeitig. Beispielsweise reichen bei den Großbuchungen weder „bezahlt“ noch „mindestens 8 Tickets“ allein aus. Erst die Kombination aller Bedingungen liefert die gesuchten Datensätze. SQL bildet diese Logik später mit WHERE sowie AND/OR ab."
+    },
+    {
+      "id": "d6",
+      "chapter": "detective",
+      "title": "Filterplan für die Geschäftsleitung",
+      "afb": "III",
+      "type": "free",
+      "rowHint": "3 erwartete Treffer",
+      "prompt": "Die Geschäftsleitung sucht <strong>Business- oder Karriereveranstaltungen</strong>, die <strong>höchstens 10 €</strong> kosten und <strong>ab dem 01.01.2027</strong> stattfinden. Formulieren Sie einen präzisen Filterplan in Alltagssprache. Noch kein SQL.",
+      "solution": "Filterplan: Kategorie ist Business ODER Karriere; UND Preis ≤ 10; UND Datum ≥ 2027-01-01. Damit bleiben EventID 9, 13 und 18 übrig."
+    },
+    {
+      "id": "m1",
+      "chapter": "model",
+      "title": "Vom ER-Modell zur Tabelle",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Welche Zuordnung ist korrekt?",
+      "options": [
+        [
+          "A",
+          "Entitätstyp → Tabelle"
+        ],
+        [
+          "B",
+          "Beziehung → einzelne Zelle"
+        ],
+        [
+          "C",
+          "Attribut → Datensatz"
+        ],
+        [
+          "D",
+          "Entität → Tabellenname"
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "Ein <strong>Entitätstyp</strong> wird im Relationenmodell als <strong>Tabelle</strong> umgesetzt."
+    },
+    {
+      "id": "m2",
+      "chapter": "model",
+      "title": "Grundbegriffe zuordnen",
+      "afb": "I",
+      "type": "drag",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Ordnen Sie die Begriffe zu.",
+      "pairs": [
+        [
+          "Entitätstyp",
+          "Tabelle"
+        ],
+        [
+          "Entität",
+          "Datensatz / Zeile"
+        ],
+        [
+          "Attribut",
+          "Spalte / Feld"
+        ]
+      ],
+      "solution": "Entitätstyp → Tabelle; Entität → Datensatz/Zeile; Attribut → Spalte/Feld."
+    },
+    {
+      "id": "m3",
+      "chapter": "model",
+      "title": "Schlüssel in BUCHUNGEN",
+      "afb": "II",
+      "type": "multi",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Welche Aussagen zur Tabelle <code>buchungen</code> sind korrekt?",
+      "options": [
+        [
+          "A",
+          "BuchungID ist Primärschlüssel."
+        ],
+        [
+          "B",
+          "KundenID ist Fremdschlüssel."
+        ],
+        [
+          "C",
+          "EventID ist Fremdschlüssel."
+        ],
+        [
+          "D",
+          "AnzahlTickets ist Fremdschlüssel."
+        ]
+      ],
+      "correct": [
+        "A",
+        "B",
+        "C"
+      ],
+      "solution": "BuchungID ist der Primärschlüssel. KundenID und EventID sind Fremdschlüssel. AnzahlTickets ist ein normales Attribut der Buchung."
+    },
+    {
+      "id": "m4",
+      "chapter": "model",
+      "title": "Warum entstehen BUCHUNGEN und EINSÄTZE?",
+      "afb": "II",
+      "type": "free",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Beschreiben Sie, warum aus den n:m-Beziehungen <em>bucht</em> und <em>wird betreut von</em> im Relationenmodell eigene Tabellen entstehen.",
+      "solution": "n:m-Beziehungen können nicht durch einen einzelnen Fremdschlüssel in nur einer der beteiligten Tabellen vollständig abgebildet werden. Deshalb entstehen Beziehungstabellen mit Fremdschlüsseln zu beiden Seiten. Dort können außerdem Beziehungsattribute gespeichert werden."
+    },
+    {
+      "id": "m5",
+      "chapter": "model",
+      "title": "Beziehungsattribute erkennen",
+      "afb": "II",
+      "type": "multi",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Welche Attribute gehören fachlich zur konkreten Beziehung <em>bucht</em> zwischen Kunde und Veranstaltung?",
+      "options": [
+        [
+          "A",
+          "AnzahlTickets"
+        ],
+        [
+          "B",
+          "Buchungsdatum"
+        ],
+        [
+          "C",
+          "Buchungsstatus"
+        ],
+        [
+          "D",
+          "Stadt des Kunden"
+        ]
+      ],
+      "correct": [
+        "A",
+        "B",
+        "C"
+      ],
+      "solution": "AnzahlTickets, Buchungsdatum und Status beschreiben die konkrete Buchung und sind damit Beziehungsattribute. Die Stadt gehört zum Kunden."
+    },
+    {
+      "id": "m6",
+      "chapter": "model",
+      "title": "Modell und SQL zusammendenken",
+      "afb": "III",
+      "type": "free",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Beurteilen Sie, weshalb es für spätere SQL-Abfragen wichtig ist, Primär- und Fremdschlüssel sowie die Beziehungen zwischen den Tabellen zu verstehen, auch wenn zunächst nur Abfragen innerhalb einer Tabelle geschrieben werden.",
+      "solution": "Das Datenmodell zeigt, wo Informationen gespeichert sind und wie Tabellen zusammenhängen. Schon bei einfachen Abfragen muss die richtige Tabelle ausgewählt werden. Für spätere komplexere Auswertungen ist zusätzlich entscheidend, welche Schlüssel die Beziehungen zwischen Tabellen herstellen."
+    },
+    {
+      "id": "s1",
+      "chapter": "select",
+      "title": "Aufgabe von SELECT",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Welche Aufgabe hat <code>SELECT</code>?",
+      "options": [
+        [
+          "A",
+          "Es legt die auszugebenden Spalten fest."
+        ],
+        [
+          "B",
+          "Es löscht Datensätze."
+        ],
+        [
+          "C",
+          "Es sortiert automatisch."
+        ],
+        [
+          "D",
+          "Es legt einen Fremdschlüssel an."
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "SELECT bestimmt die Spalten der Ergebnistabelle."
+    },
+    {
+      "id": "s2",
+      "chapter": "select",
+      "title": "Grundsyntax ordnen",
+      "afb": "I",
+      "type": "sequence",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Bringen Sie die Bestandteile einer einfachen Abfrage in die richtige Reihenfolge.",
+      "items": [
+        "SELECT Titel, Preis",
+        "FROM veranstaltungen",
+        ";"
+      ],
+      "correctOrder": [
+        "SELECT Titel, Preis",
+        "FROM veranstaltungen",
+        ";"
+      ],
+      "solution": "<code>SELECT Titel, Preis FROM veranstaltungen;</code>"
+    },
+    {
+      "id": "s3",
+      "chapter": "select",
+      "title": "Alle Veranstaltungen",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Informationen zu allen Veranstaltungen aus.",
+      "starter": "SELECT *\nFROM ;",
+      "expectedSql": "SELECT * FROM veranstaltungen;",
+      "solution": "SELECT * FROM veranstaltungen;",
+      "rowHint": "20 Ergebniszeilen"
+    },
+    {
+      "id": "s4",
+      "chapter": "select",
+      "title": "Nur benötigte Spalten",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie für alle Veranstaltungen ausschließlich <strong>Titel</strong> und <strong>Preis</strong> aus.",
+      "starter": "SELECT \nFROM veranstaltungen;",
+      "expectedSql": "SELECT Titel, Preis FROM veranstaltungen;",
+      "solution": "SELECT Titel, Preis FROM veranstaltungen;",
+      "rowHint": "20 Ergebniszeilen"
+    },
+    {
+      "id": "s5",
+      "chapter": "select",
+      "title": "SQL aus einer Ausgabetabelle ableiten",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Schreiben Sie einen SQL-Befehl, der exakt die folgende Ausgabetabelle erzeugt. Unterschiedliche SQL-Schreibweisen sind zulässig, sofern das Ergebnis fachlich identisch ist.<div class=\"target-output\"><p><strong>Vorgegebene Ausgabetabelle:</strong></p><div class=\"table-scroll\"><table class=\"data-table\"><thead><tr><th>Bezeichnung</th><th>Stadt</th></tr></thead><tbody><tr><td>Werk 2</td><td>Leipzig</td></tr><tr><td>Westbad</td><td>Leipzig</td></tr><tr><td>Kongresshalle</td><td>Leipzig</td></tr><tr><td>Täubchenthal</td><td>Leipzig</td></tr><tr><td>Messehalle 5</td><td>Leipzig</td></tr><tr><td>Kulturpalast</td><td>Dresden</td></tr><tr><td>Volkspark Halle</td><td>Halle</td></tr></tbody></table></div></div>",
+      "starter": "",
+      "expectedSql": "SELECT Bezeichnung, Stadt FROM orte;",
+      "solution": "SELECT Bezeichnung, Stadt FROM orte;",
+      "rowHint": "7 Ergebniszeilen"
+    },
+    {
+      "id": "s6",
+      "chapter": "select",
+      "title": "Fehlerhaften SELECT-Befehl reparieren",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Der folgende Befehl enthält einen Syntaxfehler. Korrigieren Sie ihn so, dass Titel und Preis aller Veranstaltungen ausgegeben werden.",
+      "starter": "SELECT Titel Preis\nFROM veranstaltungen;",
+      "expectedSql": "SELECT Titel, Preis FROM veranstaltungen;",
+      "solution": "SELECT Titel, Preis FROM veranstaltungen;",
+      "rowHint": "20 Ergebniszeilen"
+    },
+    {
+      "id": "s7",
+      "chapter": "select",
+      "title": "Kontaktliste selbstständig erzeugen",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Erzeugen Sie ohne vorgegebenes SQL-Gerüst eine Ausgabetabelle mit <strong>Name, Stadt und Kundentyp</strong> für alle Kundendatensätze.",
+      "starter": "",
+      "expectedSql": "SELECT Name, Stadt, Kundentyp FROM kunden;",
+      "solution": "SELECT Name, Stadt, Kundentyp FROM kunden;",
+      "rowHint": "24 Ergebniszeilen"
+    },
+    {
+      "id": "s8",
+      "chapter": "select",
+      "title": "Ausgabeanforderung präzise umsetzen",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Die Projektleitung benötigt aus der Mitarbeitendentabelle ausschließlich <strong>MitarbeiterID, Vorname, Nachname und Bereich</strong>. Schreiben Sie den vollständigen SQL-Befehl selbstständig.",
+      "starter": "",
+      "expectedSql": "SELECT MitarbeiterID, Vorname, Nachname, Bereich FROM mitarbeitende;",
+      "solution": "SELECT MitarbeiterID, Vorname, Nachname, Bereich FROM mitarbeitende;",
+      "rowHint": "12 Ergebniszeilen"
+    },
+    {
+      "id": "w1",
+      "chapter": "where",
+      "title": "Aufgabe von WHERE",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Was bewirkt die WHERE-Klausel?",
+      "options": [
+        [
+          "A",
+          "Sie filtert Datensätze anhand einer Bedingung."
+        ],
+        [
+          "B",
+          "Sie wählt die Datenbankdatei aus."
+        ],
+        [
+          "C",
+          "Sie sortiert immer alphabetisch."
+        ],
+        [
+          "D",
+          "Sie benennt eine Tabelle um."
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "WHERE filtert Zeilen anhand einer Bedingung."
+    },
+    {
+      "id": "w2",
+      "chapter": "where",
+      "title": "Textwerte korrekt notieren",
+      "afb": "I",
+      "type": "tf",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Die Bedingung <code>WHERE Kategorie = 'Tech'</code> verwendet für einen Textwert korrekt einfache Anführungszeichen.",
+      "correct": [
+        "true"
+      ],
+      "solution": "Richtig. Textwerte werden in den hier verwendeten SQL-Abfragen in einfachen Anführungszeichen notiert."
+    },
+    {
+      "id": "w3",
+      "chapter": "where",
+      "title": "Tech-Veranstaltungen",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Veranstaltungen aus, deren Kategorie <strong>Tech</strong> ist.",
+      "starter": "SELECT *\nFROM veranstaltungen\nWHERE ;",
+      "expectedSql": "SELECT * FROM veranstaltungen WHERE Kategorie='Tech';",
+      "solution": "SELECT * FROM veranstaltungen WHERE Kategorie='Tech';",
+      "rowHint": "3 Ergebniszeilen"
+    },
+    {
+      "id": "w4",
+      "chapter": "where",
+      "title": "Preisgrenze anwenden",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Veranstaltungen aus, deren Preis <strong>größer als 15</strong> ist.",
+      "starter": "SELECT *\nFROM veranstaltungen\nWHERE ;",
+      "expectedSql": "SELECT * FROM veranstaltungen WHERE Preis > 15;",
+      "solution": "SELECT * FROM veranstaltungen WHERE Preis > 15;",
+      "rowHint": "5 Ergebniszeilen"
+    },
+    {
+      "id": "w5",
+      "chapter": "where",
+      "title": "Leipziger Kundschaft",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Kundendatensätze aus <strong>Leipzig</strong> aus.",
+      "starter": "SELECT *\nFROM kunden\nWHERE ;",
+      "expectedSql": "SELECT * FROM kunden WHERE Stadt='Leipzig';",
+      "solution": "SELECT * FROM kunden WHERE Stadt='Leipzig';",
+      "rowHint": "10 Ergebniszeilen"
+    },
+    {
+      "id": "w6",
+      "chapter": "where",
+      "title": "Fehler: Text ohne Anführungszeichen",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Korrigieren Sie den fehlerhaften Befehl. Er soll alle Tech-Veranstaltungen ausgeben.",
+      "starter": "SELECT *\nFROM veranstaltungen\nWHERE Kategorie = Tech;",
+      "expectedSql": "SELECT * FROM veranstaltungen WHERE Kategorie='Tech';",
+      "solution": "SELECT * FROM veranstaltungen WHERE Kategorie='Tech';",
+      "rowHint": "3 Ergebniszeilen"
+    },
+    {
+      "id": "w7",
+      "chapter": "where",
+      "title": "SQL zur vorgegebenen Ergebnistabelle",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Schreiben Sie einen vollständigen SQL-Befehl, der diese Ergebnistabelle erzeugt. Es kann mehr als eine korrekte Formulierung geben.<div class=\"target-output\"><p><strong>Vorgegebene Ausgabetabelle:</strong></p><div class=\"table-scroll\"><table class=\"data-table\"><thead><tr><th>EventID</th><th>Titel</th><th>Preis</th></tr></thead><tbody><tr><td>1</td><td>Azubi Connect</td><td>0.0</td></tr><tr><td>13</td><td>Job Dating Wirtschaft</td><td>0.0</td></tr><tr><td>19</td><td>Climate Hackday</td><td>0.0</td></tr></tbody></table></div></div>",
+      "starter": "",
+      "expectedSql": "SELECT EventID, Titel, Preis FROM veranstaltungen WHERE Preis=0 ORDER BY EventID;",
+      "solution": "SELECT EventID, Titel, Preis FROM veranstaltungen WHERE Preis=0 ORDER BY EventID;",
+      "rowHint": "3 Ergebniszeilen",
+      "orderSensitive": true
+    },
+    {
+      "id": "w8",
+      "chapter": "where",
+      "title": "Firmenkunden selbstständig filtern",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Geben Sie ohne SQL-Gerüst ausschließlich <strong>KundenID, Name und Stadt</strong> für alle Datensätze mit Kundentyp <strong>Firma</strong> aus.",
+      "starter": "",
+      "expectedSql": "SELECT KundenID, Name, Stadt FROM kunden WHERE Kundentyp='Firma';",
+      "solution": "SELECT KundenID, Name, Stadt FROM kunden WHERE Kundentyp='Firma';",
+      "rowHint": "5 Ergebniszeilen"
+    },
+    {
+      "id": "w9",
+      "chapter": "where",
+      "title": "Fehlerhafte Preisbedingung korrigieren",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Der folgende Befehl soll Veranstaltungen mit einem Preis über 15 € finden, behandelt den Vergleich aber als Text. Korrigieren Sie den vollständigen Befehl.",
+      "starter": "SELECT EventID, Titel, Preis\nFROM veranstaltungen\nWHERE Preis = '>15';",
+      "expectedSql": "SELECT EventID, Titel, Preis FROM veranstaltungen WHERE Preis > 15;",
+      "solution": "SELECT EventID, Titel, Preis FROM veranstaltungen WHERE Preis > 15;",
+      "rowHint": "5 Ergebniszeilen"
+    },
+    {
+      "id": "w10",
+      "chapter": "where",
+      "title": "Datumsfilter ohne Gerüst",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Geben Sie <strong>EventID, Titel und Datum</strong> aller Veranstaltungen aus, die <strong>ab dem 01.04.2027</strong> stattfinden.",
+      "starter": "",
+      "expectedSql": "SELECT EventID, Titel, Datum FROM veranstaltungen WHERE Datum >= '2027-04-01';",
+      "solution": "SELECT EventID, Titel, Datum FROM veranstaltungen WHERE Datum >= '2027-04-01';",
+      "rowHint": "5 Ergebniszeilen"
+    },
+    {
+      "id": "o1",
+      "chapter": "order",
+      "title": "Standard-Sortierung",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Wie sortiert <code>ORDER BY Preis</code> ohne weiteren Zusatz?",
+      "options": [
+        [
+          "A",
+          "Aufsteigend"
+        ],
+        [
+          "B",
+          "Absteigend"
+        ],
+        [
+          "C",
+          "Zufällig"
+        ],
+        [
+          "D",
+          "Nach EventID"
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "Ohne DESC wird aufsteigend sortiert; ASC kann ausdrücklich ergänzt werden."
+    },
+    {
+      "id": "o2",
+      "chapter": "order",
+      "title": "Klauseln in richtige Reihenfolge bringen",
+      "afb": "I",
+      "type": "sequence",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Ordnen Sie die Klauseln korrekt.",
+      "items": [
+        "SELECT *",
+        "FROM veranstaltungen",
+        "WHERE Preis > 10",
+        "ORDER BY Preis DESC",
+        ";"
+      ],
+      "correctOrder": [
+        "SELECT *",
+        "FROM veranstaltungen",
+        "WHERE Preis > 10",
+        "ORDER BY Preis DESC",
+        ";"
+      ],
+      "solution": "SELECT → FROM → WHERE → ORDER BY → ;"
+    },
+    {
+      "id": "o3",
+      "chapter": "order",
+      "title": "Nach Preis sortieren",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Veranstaltungen aus und sortieren Sie sie <strong>aufsteigend nach Preis</strong>.",
+      "starter": "SELECT *\nFROM veranstaltungen\nORDER BY ;",
+      "expectedSql": "SELECT * FROM veranstaltungen ORDER BY Preis ASC;",
+      "solution": "SELECT * FROM veranstaltungen ORDER BY Preis ASC;",
+      "rowHint": "20 Ergebniszeilen",
+      "orderSensitive": true
+    },
+    {
+      "id": "o4",
+      "chapter": "order",
+      "title": "Kategorie ausschließen",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Veranstaltungen aus, die <strong>nicht</strong> zur Kategorie Tech gehören.",
+      "starter": "SELECT *\nFROM veranstaltungen\nWHERE NOT ;",
+      "expectedSql": "SELECT * FROM veranstaltungen WHERE NOT Kategorie='Tech';",
+      "solution": "SELECT * FROM veranstaltungen WHERE NOT Kategorie='Tech';",
+      "rowHint": "17 Ergebniszeilen"
+    },
+    {
+      "id": "o5",
+      "chapter": "order",
+      "title": "Fehler in ORDER BY beheben",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Reparieren Sie den fehlerhaften Sortierbefehl so, dass alle Veranstaltungen absteigend nach Preis ausgegeben werden.",
+      "starter": "SELECT *\nFROM veranstaltungen\nORDER Preis DESC BY;",
+      "expectedSql": "SELECT * FROM veranstaltungen ORDER BY Preis DESC;",
+      "solution": "SELECT * FROM veranstaltungen ORDER BY Preis DESC;",
+      "rowHint": "20 Ergebniszeilen",
+      "orderSensitive": true
+    },
+    {
+      "id": "o6",
+      "chapter": "order",
+      "title": "Mehrstufig sortieren",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Kunden aus, deren Stadt <strong>nicht Leipzig</strong> ist. Sortieren Sie zuerst nach Stadt und danach nach Name.",
+      "starter": "",
+      "expectedSql": "SELECT * FROM kunden WHERE NOT Stadt='Leipzig' ORDER BY Stadt, Name;",
+      "solution": "SELECT * FROM kunden WHERE NOT Stadt='Leipzig' ORDER BY Stadt, Name;",
+      "rowHint": "14 Ergebniszeilen",
+      "orderSensitive": true
+    },
+    {
+      "id": "o7",
+      "chapter": "order",
+      "title": "Ausgabetabelle rekonstruieren",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Rekonstruieren Sie einen vollständigen SQL-Befehl, der diese Tabelle erzeugt. Der Kurs prüft das Ergebnis, nicht den exakten Wortlaut.<div class=\"target-output\"><p><strong>Vorgegebene Ausgabetabelle:</strong></p><div class=\"table-scroll\"><table class=\"data-table\"><thead><tr><th>KundenID</th><th>Name</th><th>Kundentyp</th></tr></thead><tbody><tr><td>13</td><td>CampusFit e.V.</td><td>Verein</td></tr><tr><td>16</td><td>FutureLab GmbH</td><td>Firma</td></tr><tr><td>14</td><td>GreenStep UG</td><td>Firma</td></tr><tr><td>15</td><td>Kulturraum e.V.</td><td>Verein</td></tr><tr><td>11</td><td>Nova Media GmbH</td><td>Firma</td></tr><tr><td>12</td><td>Pixelwerk AG</td><td>Firma</td></tr><tr><td>24</td><td>UrbanSports GmbH</td><td>Firma</td></tr></tbody></table></div></div>",
+      "starter": "",
+      "expectedSql": "SELECT KundenID, Name, Kundentyp FROM kunden WHERE NOT Kundentyp='Privat' ORDER BY Name;",
+      "solution": "SELECT KundenID, Name, Kundentyp FROM kunden WHERE NOT Kundentyp='Privat' ORDER BY Name;",
+      "rowHint": "7 Ergebniszeilen",
+      "orderSensitive": true
+    },
+    {
+      "id": "o8",
+      "chapter": "order",
+      "title": "Zwei Fehler gleichzeitig finden",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Korrigieren Sie den folgenden Befehl. Gesucht sind alle Nicht-Tech-Veranstaltungen, absteigend nach Preis sortiert.",
+      "starter": "SELECT Titel, Kategorie, Preis\nFROM veranstaltungen\nORDER BY Preis DESC\nWHERE NOT Kategorie = 'Tech';",
+      "expectedSql": "SELECT Titel, Kategorie, Preis FROM veranstaltungen WHERE NOT Kategorie='Tech' ORDER BY Preis DESC;",
+      "solution": "SELECT Titel, Kategorie, Preis FROM veranstaltungen WHERE NOT Kategorie='Tech' ORDER BY Preis DESC;",
+      "rowHint": "17 Ergebniszeilen",
+      "orderSensitive": true
+    },
+    {
+      "id": "l1",
+      "chapter": "logic",
+      "title": "Wildcard verstehen",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Wofür steht <code>%</code> in einem LIKE-Muster?",
+      "options": [
+        [
+          "A",
+          "Für beliebig viele Zeichen"
+        ],
+        [
+          "B",
+          "Nur für genau eine Ziffer"
+        ],
+        [
+          "C",
+          "Für einen Primärschlüssel"
+        ],
+        [
+          "D",
+          "Für eine Sortierung"
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "% steht in LIKE-Mustern für beliebig viele Zeichen."
+    },
+    {
+      "id": "l2",
+      "chapter": "logic",
+      "title": "AND oder OR?",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Welche Verknüpfung verwenden Sie, wenn <strong>beide</strong> Bedingungen erfüllt sein müssen?",
+      "options": [
+        [
+          "A",
+          "AND"
+        ],
+        [
+          "B",
+          "OR"
+        ],
+        [
+          "C",
+          "NOT"
+        ],
+        [
+          "D",
+          "ORDER BY"
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "AND verlangt, dass beide Bedingungen wahr sind."
+    },
+    {
+      "id": "l3",
+      "chapter": "logic",
+      "title": "Klammern bei gemischter Logik",
+      "afb": "I",
+      "type": "tf",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Bei gemischten AND-/OR-Bedingungen können Klammern nötig sein, um die gewünschte Logik eindeutig festzulegen.",
+      "correct": [
+        "true"
+      ],
+      "solution": "Richtig. Klammern steuern, welche Bedingungen gemeinsam ausgewertet werden."
+    },
+    {
+      "id": "l4",
+      "chapter": "logic",
+      "title": "Titel beginnt mit C",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Veranstaltungen aus, deren Titel mit dem Buchstaben <strong>C</strong> beginnt.",
+      "starter": "SELECT *\nFROM veranstaltungen\nWHERE Titel LIKE ;",
+      "expectedSql": "SELECT * FROM veranstaltungen WHERE Titel LIKE 'C%';",
+      "solution": "SELECT * FROM veranstaltungen WHERE Titel LIKE 'C%';",
+      "rowHint": "3 Ergebniszeilen"
+    },
+    {
+      "id": "l5",
+      "chapter": "logic",
+      "title": "Leipziger Firmenkunden",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Kunden aus, die in <strong>Leipzig</strong> wohnen <strong>UND</strong> Kundentyp <strong>Firma</strong> haben.",
+      "starter": "SELECT *\nFROM kunden\nWHERE Stadt = 'Leipzig' AND ;",
+      "expectedSql": "SELECT * FROM kunden WHERE Stadt='Leipzig' AND Kundentyp='Firma';",
+      "solution": "SELECT * FROM kunden WHERE Stadt='Leipzig' AND Kundentyp='Firma';",
+      "rowHint": "3 Ergebniszeilen"
+    },
+    {
+      "id": "l6",
+      "chapter": "logic",
+      "title": "Gaming oder Sport",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Veranstaltungen aus, deren Kategorie <strong>Gaming ODER Sport</strong> ist.",
+      "starter": "SELECT *\nFROM veranstaltungen\nWHERE ;",
+      "expectedSql": "SELECT * FROM veranstaltungen WHERE Kategorie='Gaming' OR Kategorie='Sport';",
+      "solution": "SELECT * FROM veranstaltungen WHERE Kategorie='Gaming' OR Kategorie='Sport';",
+      "rowHint": "5 Ergebniszeilen"
+    },
+    {
+      "id": "l7",
+      "chapter": "logic",
+      "title": "Fehlerhafte Logik korrigieren",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Der Befehl soll nur Gaming- oder Sportveranstaltungen unter 15 € liefern. Korrigieren Sie die Logik so, dass die Preisgrenze für <strong>beide</strong> Kategorien gilt.",
+      "starter": "SELECT *\nFROM veranstaltungen\nWHERE Kategorie = 'Gaming' OR Kategorie = 'Sport' AND Preis < 15;",
+      "expectedSql": "SELECT * FROM veranstaltungen WHERE (Kategorie='Gaming' OR Kategorie='Sport') AND Preis < 15;",
+      "solution": "SELECT * FROM veranstaltungen WHERE (Kategorie='Gaming' OR Kategorie='Sport') AND Preis < 15;",
+      "rowHint": "3 Ergebniszeilen"
+    },
+    {
+      "id": "l8",
+      "chapter": "logic",
+      "title": "Ausgabetabelle mit AND/OR erzeugen",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Schreiben Sie einen SQL-Befehl für die vorgegebene Ergebnistabelle. Verschiedene fachlich gleichwertige Befehle sind zulässig.<div class=\"target-output\"><p><strong>Vorgegebene Ausgabetabelle:</strong></p><div class=\"table-scroll\"><table class=\"data-table\"><thead><tr><th>KundenID</th><th>Name</th><th>Stadt</th><th>Kundentyp</th></tr></thead><tbody><tr><td>14</td><td>GreenStep UG</td><td>Dresden</td><td>Firma</td></tr><tr><td>16</td><td>FutureLab GmbH</td><td>Leipzig</td><td>Firma</td></tr><tr><td>11</td><td>Nova Media GmbH</td><td>Leipzig</td><td>Firma</td></tr><tr><td>24</td><td>UrbanSports GmbH</td><td>Leipzig</td><td>Firma</td></tr></tbody></table></div></div>",
+      "starter": "",
+      "expectedSql": "SELECT KundenID, Name, Stadt, Kundentyp FROM kunden WHERE (Stadt='Leipzig' OR Stadt='Dresden') AND Kundentyp='Firma' ORDER BY Stadt, Name;",
+      "solution": "SELECT KundenID, Name, Stadt, Kundentyp FROM kunden WHERE (Stadt='Leipzig' OR Stadt='Dresden') AND Kundentyp='Firma' ORDER BY Stadt, Name;",
+      "rowHint": "4 Ergebniszeilen",
+      "orderSensitive": true
+    },
+    {
+      "id": "l9",
+      "chapter": "logic",
+      "title": "Titel enthält a, aber nicht Gaming",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Veranstaltungen aus, deren Titel den Buchstaben <strong>a</strong> enthält und deren Kategorie <strong>nicht Gaming</strong> ist.",
+      "starter": "",
+      "expectedSql": "SELECT * FROM veranstaltungen WHERE Titel LIKE '%a%' AND NOT Kategorie='Gaming';",
+      "solution": "SELECT * FROM veranstaltungen WHERE Titel LIKE '%a%' AND NOT Kategorie='Gaming';",
+      "rowHint": "15 Ergebniszeilen"
+    },
+    {
+      "id": "l10",
+      "chapter": "logic",
+      "title": "Komplexe Kampagnenliste",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Geben Sie <strong>Titel, Kategorie und Preis</strong> für Veranstaltungen aus, die zur Kategorie <strong>Gaming oder Sport</strong> gehören und <strong>unter 15 €</strong> kosten. Sortieren Sie aufsteigend nach Preis. Schreiben Sie den kompletten Befehl ohne Gerüst.",
+      "starter": "",
+      "expectedSql": "SELECT Titel, Kategorie, Preis FROM veranstaltungen WHERE (Kategorie='Gaming' OR Kategorie='Sport') AND Preis < 15 ORDER BY Preis;",
+      "solution": "SELECT Titel, Kategorie, Preis FROM veranstaltungen WHERE (Kategorie='Gaming' OR Kategorie='Sport') AND Preis < 15 ORDER BY Preis;",
+      "rowHint": "3 Ergebniszeilen",
+      "orderSensitive": true
+    },
+    {
+      "id": "l11",
+      "chapter": "logic",
+      "title": "SQL aus komplexer Ausgabetabelle",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Leiten Sie aus dieser Ausgabetabelle einen vollständigen SQL-Befehl ab. Es sind mehrere unterschiedliche korrekte SQL-Befehle möglich; entscheidend ist die gleiche Ausgabetabelle.<div class=\"target-output\"><p><strong>Vorgegebene Ausgabetabelle:</strong></p><div class=\"table-scroll\"><table class=\"data-table\"><thead><tr><th>EventID</th><th>Titel</th><th>Kategorie</th><th>Preis</th></tr></thead><tbody><tr><td>17</td><td>Skate &amp; Street Art</td><td>Sport</td><td>5.0</td></tr><tr><td>20</td><td>Summer Gaming Open</td><td>Gaming</td><td>12.5</td></tr><tr><td>10</td><td>Urban Dance Session</td><td>Sport</td><td>14.0</td></tr></tbody></table></div></div>",
+      "starter": "",
+      "expectedSql": "SELECT EventID, Titel, Kategorie, Preis FROM veranstaltungen WHERE (Kategorie='Gaming' OR Kategorie='Sport') AND Preis < 15 ORDER BY Preis;",
+      "solution": "SELECT EventID, Titel, Kategorie, Preis FROM veranstaltungen WHERE (Kategorie='Gaming' OR Kategorie='Sport') AND Preis < 15 ORDER BY Preis;",
+      "rowHint": "3 Ergebniszeilen",
+      "orderSensitive": true
+    },
+    {
+      "id": "l12",
+      "chapter": "logic",
+      "title": "Prioritätsfehler analysieren und korrigieren",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Korrigieren Sie den Befehl so, dass nur <strong>Leipziger oder Dresdner Firmenkunden</strong> ausgegeben werden. Die Bedingung „Firma“ muss für beide Städte gelten.",
+      "starter": "SELECT *\nFROM kunden\nWHERE Stadt = 'Leipzig' OR Stadt = 'Dresden' AND Kundentyp = 'Firma';",
+      "expectedSql": "SELECT * FROM kunden WHERE (Stadt='Leipzig' OR Stadt='Dresden') AND Kundentyp='Firma';",
+      "solution": "SELECT * FROM kunden WHERE (Stadt='Leipzig' OR Stadt='Dresden') AND Kundentyp='Firma';",
+      "rowHint": "4 Ergebniszeilen"
+    },
+    {
+      "id": "c1",
+      "chapter": "change",
+      "title": "UPDATE erkennen",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Welcher Befehl verändert Werte bestehender Datensätze?",
+      "options": [
+        [
+          "A",
+          "UPDATE"
+        ],
+        [
+          "B",
+          "SELECT"
+        ],
+        [
+          "C",
+          "ORDER BY"
+        ],
+        [
+          "D",
+          "FROM"
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "UPDATE verändert vorhandene Datensätze."
+    },
+    {
+      "id": "c2",
+      "chapter": "change",
+      "title": "Sicherheitsregel",
+      "afb": "I",
+      "type": "tf",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Ohne WHERE kann ein UPDATE mehr Datensätze verändern als beabsichtigt.",
+      "correct": [
+        "true"
+      ],
+      "solution": "Richtig. Ohne WHERE wirkt UPDATE grundsätzlich auf alle Zeilen der Tabelle."
+    },
+    {
+      "id": "c3",
+      "chapter": "change",
+      "title": "DELETE erkennen",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Welcher Befehl entfernt vollständige Datensätze aus einer Tabelle?",
+      "options": [
+        [
+          "A",
+          "DELETE"
+        ],
+        [
+          "B",
+          "SET"
+        ],
+        [
+          "C",
+          "LIKE"
+        ],
+        [
+          "D",
+          "SELECT"
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "DELETE entfernt Datensätze."
+    },
+    {
+      "id": "c4",
+      "chapter": "change",
+      "title": "Preis eines Events erhöhen",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Erhöhen Sie den Preis der Veranstaltung mit EventID 12 um <strong>2 €</strong>.",
+      "starter": "UPDATE veranstaltungen\nSET Preis = Preis + 2\nWHERE ;",
+      "expectedSql": "UPDATE veranstaltungen SET Preis = Preis + 2 WHERE EventID = 12;",
+      "solution": "UPDATE veranstaltungen SET Preis = Preis + 2 WHERE EventID = 12;",
+      "mode": "mutation",
+      "verifySql": "SELECT EventID,Preis FROM veranstaltungen ORDER BY EventID;",
+      "rowHint": "1 Datensatz/Datensätze werden geändert"
+    },
+    {
+      "id": "c5",
+      "chapter": "change",
+      "title": "Kundenstadt aktualisieren",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Ändern Sie die Stadt des Kunden mit KundenID 10 auf <strong>Berlin</strong>.",
+      "starter": "UPDATE kunden\nSET Stadt = 'Berlin'\nWHERE ;",
+      "expectedSql": "UPDATE kunden SET Stadt='Berlin' WHERE KundenID=10;",
+      "solution": "UPDATE kunden SET Stadt='Berlin' WHERE KundenID=10;",
+      "mode": "mutation",
+      "verifySql": "SELECT KundenID,Stadt FROM kunden ORDER BY KundenID;",
+      "rowHint": "1 Datensatz/Datensätze werden geändert"
+    },
+    {
+      "id": "c6",
+      "chapter": "change",
+      "title": "Inaktiven Mitarbeiter löschen",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Löschen Sie alle Datensätze aus <strong>mitarbeitende</strong>, bei denen <strong>Aktiv = 0</strong> gilt.",
+      "starter": "DELETE FROM mitarbeitende\nWHERE ;",
+      "expectedSql": "DELETE FROM mitarbeitende WHERE Aktiv = 0;",
+      "solution": "DELETE FROM mitarbeitende WHERE Aktiv = 0;",
+      "mode": "mutation",
+      "verifySql": "SELECT MitarbeiterID,Vorname,Nachname,Aktiv FROM mitarbeitende ORDER BY MitarbeiterID;",
+      "rowHint": "1 Datensatz/Datensätze werden gelöscht"
+    },
+    {
+      "id": "c7",
+      "chapter": "change",
+      "title": "Gefährliches UPDATE reparieren",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Der Befehl soll nur EventID 5 um 1 € verteuern. In der vorliegenden Form würde er alle Veranstaltungen verändern. Ergänzen Sie die notwendige Einschränkung.",
+      "starter": "UPDATE veranstaltungen\nSET Preis = Preis + 1;",
+      "expectedSql": "UPDATE veranstaltungen SET Preis = Preis + 1 WHERE EventID=5;",
+      "solution": "UPDATE veranstaltungen SET Preis = Preis + 1 WHERE EventID=5;",
+      "mode": "mutation",
+      "verifySql": "SELECT EventID,Preis FROM veranstaltungen ORDER BY EventID;",
+      "rowHint": "1 Datensatz/Datensätze werden geändert"
+    },
+    {
+      "id": "c8",
+      "chapter": "change",
+      "title": "DELETE-Syntax korrigieren",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Korrigieren Sie den Befehl so, dass nur die Veranstaltung mit EventID 20 gelöscht wird.",
+      "starter": "DELETE * FROM veranstaltungen\nWHERE EventID = 20;",
+      "expectedSql": "DELETE FROM veranstaltungen WHERE EventID=20;",
+      "solution": "DELETE FROM veranstaltungen WHERE EventID=20;",
+      "mode": "mutation",
+      "verifySql": "SELECT EventID,Titel FROM veranstaltungen ORDER BY EventID;",
+      "rowHint": "1 Datensatz/Datensätze werden gelöscht"
+    },
+    {
+      "id": "c9",
+      "chapter": "change",
+      "title": "Preise einer Kategorie selbstständig ändern",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Erhöhen Sie ohne SQL-Gerüst die Preise aller <strong>Tech-Veranstaltungen um 10 %</strong>.",
+      "starter": "",
+      "expectedSql": "UPDATE veranstaltungen SET Preis = Preis * 1.10 WHERE Kategorie='Tech';",
+      "solution": "UPDATE veranstaltungen SET Preis = Preis * 1.10 WHERE Kategorie='Tech';",
+      "mode": "mutation",
+      "verifySql": "SELECT EventID,Kategorie,Preis FROM veranstaltungen ORDER BY EventID;",
+      "rowHint": "3 Datensatz/Datensätze werden geändert"
+    },
+    {
+      "id": "c10",
+      "chapter": "change",
+      "title": "Mehrere Kategorien gemeinsam ändern",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Reduzieren Sie die Preise aller Veranstaltungen aus <strong>Gaming oder Sport</strong> um <strong>10 %</strong>. Formulieren Sie den vollständigen Befehl selbstständig.",
+      "starter": "",
+      "expectedSql": "UPDATE veranstaltungen SET Preis = Preis * 0.90 WHERE Kategorie='Gaming' OR Kategorie='Sport';",
+      "solution": "UPDATE veranstaltungen SET Preis = Preis * 0.90 WHERE Kategorie='Gaming' OR Kategorie='Sport';",
+      "mode": "mutation",
+      "verifySql": "SELECT EventID,Kategorie,Preis FROM veranstaltungen ORDER BY EventID;",
+      "rowHint": "5 Datensatz/Datensätze werden geändert"
+    },
+    {
+      "id": "t1",
+      "chapter": "test",
+      "title": "Test · SELECT und FROM",
+      "afb": "I",
+      "type": "single",
+      "isTest": true,
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Welche Klausel legt die Quelltabelle fest?",
+      "options": [
+        [
+          "A",
+          "FROM"
+        ],
+        [
+          "B",
+          "WHERE"
+        ],
+        [
+          "C",
+          "ORDER BY"
+        ],
+        [
+          "D",
+          "SET"
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "FROM legt die Tabelle fest."
+    },
+    {
+      "id": "t2",
+      "chapter": "test",
+      "title": "Test · LIKE-Wildcard",
+      "afb": "I",
+      "type": "single",
+      "isTest": true,
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Welches Muster findet Titel, die mit „Tech“ beginnen?",
+      "options": [
+        [
+          "A",
+          "'Tech%'"
+        ],
+        [
+          "B",
+          "'%Tech'"
+        ],
+        [
+          "C",
+          "'%Tech%'"
+        ],
+        [
+          "D",
+          "'Tech'"
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "<code>LIKE 'Tech%'</code> findet Texte, die mit Tech beginnen."
+    },
+    {
+      "id": "t3",
+      "chapter": "test",
+      "title": "Test · UPDATE-Sicherheit",
+      "afb": "I",
+      "type": "tf",
+      "isTest": true,
+      "rowHint": "0 – Theorieaufgabe",
+      "prompt": "Vor einem gezielten UPDATE ist eine SELECT-Abfrage mit derselben WHERE-Bedingung eine sinnvolle Kontrolle.",
+      "correct": [
+        "true"
+      ],
+      "solution": "Richtig. So lässt sich vor der Änderung prüfen, welche Datensätze betroffen wären."
+    },
+    {
+      "id": "t4",
+      "chapter": "test",
+      "title": "Test · Spalten auswählen",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie Titel und Datum aller Veranstaltungen aus.",
+      "starter": "",
+      "expectedSql": "SELECT Titel, Datum FROM veranstaltungen;",
+      "solution": "SELECT Titel, Datum FROM veranstaltungen;",
+      "rowHint": "20 Ergebniszeilen",
+      "isTest": true
+    },
+    {
+      "id": "t5",
+      "chapter": "test",
+      "title": "Test · WHERE",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Veranstaltungen mit Preis ≤ 8 € aus.",
+      "starter": "",
+      "expectedSql": "SELECT * FROM veranstaltungen WHERE Preis <= 8;",
+      "solution": "SELECT * FROM veranstaltungen WHERE Preis <= 8;",
+      "rowHint": "9 Ergebniszeilen",
+      "isTest": true
+    },
+    {
+      "id": "t6",
+      "chapter": "test",
+      "title": "Test · Sortieren",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie EventID, Titel und Preis aller Veranstaltungen absteigend nach Preis sortiert aus.",
+      "starter": "",
+      "expectedSql": "SELECT EventID, Titel, Preis FROM veranstaltungen ORDER BY Preis DESC;",
+      "solution": "SELECT EventID, Titel, Preis FROM veranstaltungen ORDER BY Preis DESC;",
+      "rowHint": "20 Ergebniszeilen",
+      "orderSensitive": true,
+      "isTest": true
+    },
+    {
+      "id": "t7",
+      "chapter": "test",
+      "title": "Test · LIKE",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Veranstaltungen aus, deren Titel das Wort <strong>Food</strong> enthält.",
+      "starter": "",
+      "expectedSql": "SELECT * FROM veranstaltungen WHERE Titel LIKE '%Food%';",
+      "solution": "SELECT * FROM veranstaltungen WHERE Titel LIKE '%Food%';",
+      "rowHint": "2 Ergebniszeilen",
+      "isTest": true
+    },
+    {
+      "id": "t8",
+      "chapter": "test",
+      "title": "Test · AND/OR",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Veranstaltungen aus, die Tech oder Gaming sind und höchstens 12,5 € kosten.",
+      "starter": "",
+      "expectedSql": "SELECT * FROM veranstaltungen WHERE (Kategorie='Tech' OR Kategorie='Gaming') AND Preis <= 12.5;",
+      "solution": "SELECT * FROM veranstaltungen WHERE (Kategorie='Tech' OR Kategorie='Gaming') AND Preis <= 12.5;",
+      "rowHint": "4 Ergebniszeilen",
+      "isTest": true
+    },
+    {
+      "id": "t9",
+      "chapter": "test",
+      "title": "Test · Fehler korrigieren",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Korrigieren Sie den Befehl, sodass Leipziger Kunden nach Name sortiert ausgegeben werden.",
+      "starter": "SELECT * FROM kunden\nORDER BY Name\nWHERE Stadt = Leipzig;",
+      "expectedSql": "SELECT * FROM kunden WHERE Stadt='Leipzig' ORDER BY Name;",
+      "solution": "SELECT * FROM kunden WHERE Stadt='Leipzig' ORDER BY Name;",
+      "rowHint": "10 Ergebniszeilen",
+      "orderSensitive": true,
+      "isTest": true
+    },
+    {
+      "id": "t10",
+      "chapter": "test",
+      "title": "Test · Vollständiges Statement",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Erzeugen Sie ohne Gerüst eine Liste mit Name, Stadt und Kundentyp für Firmen oder Vereine, die nicht in Leipzig sitzen. Sortieren Sie nach Stadt und Name.",
+      "starter": "",
+      "expectedSql": "SELECT Name, Stadt, Kundentyp FROM kunden WHERE (Kundentyp='Firma' OR Kundentyp='Verein') AND NOT Stadt='Leipzig' ORDER BY Stadt, Name;",
+      "solution": "SELECT Name, Stadt, Kundentyp FROM kunden WHERE (Kundentyp='Firma' OR Kundentyp='Verein') AND NOT Stadt='Leipzig' ORDER BY Stadt, Name;",
+      "rowHint": "3 Ergebniszeilen",
+      "orderSensitive": true,
+      "isTest": true
+    },
+    {
+      "id": "t11",
+      "chapter": "test",
+      "title": "Test · SQL aus Ausgabetabelle",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Schreiben Sie einen SQL-Befehl, der genau diese Ausgabetabelle erzeugt. Es können mehrere Lösungen korrekt sein.<div class=\"target-output\"><p><strong>Vorgegebene Ausgabetabelle:</strong></p><div class=\"table-scroll\"><table class=\"data-table\"><thead><tr><th>EventID</th><th>Titel</th><th>Preis</th></tr></thead><tbody><tr><td>12</td><td>Tech Repair Café</td><td>4.0</td></tr><tr><td>5</td><td>Code &amp; Coffee</td><td>6.5</td></tr><tr><td>16</td><td>AI Basics Workshop</td><td>11.0</td></tr></tbody></table></div></div>",
+      "starter": "",
+      "expectedSql": "SELECT EventID, Titel, Preis FROM veranstaltungen WHERE Kategorie='Tech' ORDER BY Preis;",
+      "solution": "SELECT EventID, Titel, Preis FROM veranstaltungen WHERE Kategorie='Tech' ORDER BY Preis;",
+      "rowHint": "3 Ergebniszeilen",
+      "orderSensitive": true,
+      "isTest": true
+    },
+    {
+      "id": "t12",
+      "chapter": "test",
+      "title": "Test · Daten ändern",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Erhöhen Sie die Preise aller Food-Veranstaltungen um 5 %. Schreiben Sie den vollständigen Befehl.",
+      "starter": "",
+      "expectedSql": "UPDATE veranstaltungen SET Preis = Preis * 1.05 WHERE Kategorie='Food';",
+      "solution": "UPDATE veranstaltungen SET Preis = Preis * 1.05 WHERE Kategorie='Food';",
+      "mode": "mutation",
+      "verifySql": "SELECT EventID,Kategorie,Preis FROM veranstaltungen ORDER BY EventID;",
+      "rowHint": "2 Datensatz/Datensätze werden geändert",
+      "isTest": true
+    }
   ],
-  bonusTasks: [
-    {id:'b1',chapter:'bonus',title:'Bonus · Große Veranstaltungsorte',afb:'II',type:'sql',bonus:true,rowHint:'4 Ergebniszeilen',prompt:'Geben Sie alle Orte mit einer Kapazität über 1000 aus und sortieren Sie absteigend nach Kapazität.',starter:'SELECT *\nFROM orte\nWHERE \nORDER BY ;',expectedSql:'SELECT * FROM orte WHERE Kapazitaet>1000 ORDER BY Kapazitaet DESC;',orderSensitive:true,solution:'SELECT *\nFROM orte\nWHERE Kapazitaet > 1000\nORDER BY Kapazitaet DESC;'},
-    {id:'b2',chapter:'bonus',title:'Bonus · Vornamen mit a',afb:'II',type:'sql',bonus:true,rowHint:'5 Ergebniszeilen',prompt:'Geben Sie alle Mitarbeitenden aus, deren Vorname auf <strong>a</strong> endet.',starter:'SELECT *\nFROM mitarbeitende\nWHERE ;',expectedSql:"SELECT * FROM mitarbeitende WHERE Vorname LIKE '%a';",solution:"SELECT *\nFROM mitarbeitende\nWHERE Vorname LIKE '%a';"},
-    {id:'b3',chapter:'bonus',title:'Bonus · Größere bezahlte Buchungen',afb:'II',type:'sql',bonus:true,rowHint:'7 Ergebniszeilen',prompt:'Geben Sie bezahlte Buchungen mit mindestens 6 Tickets aus.',starter:'SELECT *\nFROM buchungen\nWHERE ;',expectedSql:"SELECT * FROM buchungen WHERE Status='bezahlt' AND AnzahlTickets>=6;",solution:"SELECT *\nFROM buchungen\nWHERE Status = 'bezahlt' AND AnzahlTickets >= 6;"},
-    {id:'b4',chapter:'bonus',title:'Bonus · Logik-Challenge',afb:'III',type:'sql',bonus:true,rowHint:'4 Ergebniszeilen',prompt:'Geben Sie aktive Mitarbeitende aus Technik oder Service aus, deren Vorname <strong>nicht</strong> mit J beginnt.',starter:'SELECT *\nFROM mitarbeitende\nWHERE ;',expectedSql:"SELECT * FROM mitarbeitende WHERE (Bereich='Technik' OR Bereich='Service') AND Aktiv=1 AND NOT Vorname LIKE 'J%';",solution:"SELECT *\nFROM mitarbeitende\nWHERE (Bereich = 'Technik' OR Bereich = 'Service')\n  AND Aktiv = 1\n  AND NOT Vorname LIKE 'J%';"},
-    {id:'b5',chapter:'bonus',title:'Bonus · Projektleitung umbenennen',afb:'III',type:'sql',bonus:true,mode:'mutation',rowHint:'2 Datensätze werden geändert',prompt:'Ändern Sie bei allen Mitarbeitenden den Bereich <strong>Projektleitung</strong> in <strong>Projektmanagement</strong>.',starter:'UPDATE mitarbeitende\nSET Bereich = \nWHERE ;',expectedSql:"UPDATE mitarbeitende SET Bereich='Projektmanagement' WHERE Bereich='Projektleitung';",verifySql:'SELECT * FROM mitarbeitende ORDER BY MitarbeiterID;',solution:"UPDATE mitarbeitende\nSET Bereich = 'Projektmanagement'\nWHERE Bereich = 'Projektleitung';"},
-    {id:'b6',chapter:'bonus',title:'Bonus · Unbenutzten Eventdatensatz löschen',afb:'III',type:'sql',bonus:true,mode:'mutation',rowHint:'1 Datensatz wird gelöscht',prompt:'Löschen Sie die Veranstaltung mit dem Titel <strong>Summer Gaming Open</strong>.',starter:'DELETE FROM veranstaltungen\nWHERE ;',expectedSql:"DELETE FROM veranstaltungen WHERE Titel='Summer Gaming Open';",verifySql:'SELECT * FROM veranstaltungen ORDER BY EventID;',solution:"DELETE FROM veranstaltungen\nWHERE Titel = 'Summer Gaming Open';"},
-    {id:'b7',chapter:'bonus',title:'Bonus · SQL Island',afb:'II',type:'free',bonus:true,rowHint:'0 – Reflexionsaufgabe',external:'https://sql-island.informatik.uni-kl.de/',prompt:'Öffnen Sie SQL Island und notieren Sie hier zwei SQL-Ideen oder Befehle, die Ihnen dort besonders geholfen haben.',solution:'Individuelle Reflexion. Sinnvoll sind beispielsweise Beobachtungen zu SELECT, WHERE, logischen Operatoren oder der schrittweisen Eingrenzung einer Ergebnismenge.'},
-    {id:'b8',chapter:'bonus',title:'Bonus · Query Review',afb:'III',type:'free',bonus:true,rowHint:'0 – Reflexionsaufgabe',prompt:'Erklären Sie, wie Sie bei einer komplexen Abfrage systematisch prüfen können, ob SELECT, WHERE, AND/OR, LIKE und ORDER BY zusammen das gewünschte Ergebnis erzeugen.',solution:'Sinnvoll ist ein schrittweises Vorgehen: zuerst Tabelle und Ausgabespalten prüfen, dann Bedingungen einzeln testen, AND/OR mit Klammern eindeutig strukturieren, LIKE-Muster separat kontrollieren und erst zum Schluss sortieren. Die erwartete Zeilenzahl dient als zusätzliche Plausibilitätskontrolle.'}
+  "bonusTasks": [
+    {
+      "id": "b1",
+      "chapter": "bonus",
+      "title": "Bonus · Medien oder Kultur",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie alle Veranstaltungen aus, die zur Kategorie Medien oder Kultur gehören. Sortieren Sie nach Datum.",
+      "starter": "",
+      "expectedSql": "SELECT * FROM veranstaltungen WHERE Kategorie='Medien' OR Kategorie='Kultur' ORDER BY Datum;",
+      "solution": "SELECT * FROM veranstaltungen WHERE Kategorie='Medien' OR Kategorie='Kultur' ORDER BY Datum;",
+      "rowHint": "2 Ergebniszeilen",
+      "orderSensitive": true,
+      "bonus": true
+    },
+    {
+      "id": "b2",
+      "chapter": "bonus",
+      "title": "Bonus · Titel ohne a",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Geben Sie Titel und Kategorie aller Veranstaltungen aus, deren Titel kein „a“ enthält.",
+      "starter": "",
+      "expectedSql": "SELECT Titel, Kategorie FROM veranstaltungen WHERE NOT Titel LIKE '%a%';",
+      "solution": "SELECT Titel, Kategorie FROM veranstaltungen WHERE NOT Titel LIKE '%a%';",
+      "rowHint": "3 Ergebniszeilen",
+      "bonus": true
+    },
+    {
+      "id": "b3",
+      "chapter": "bonus",
+      "title": "Bonus · Komplexe Kundenliste",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Geben Sie Name, Stadt und Kundentyp aller Firmen oder Vereine aus Dresden oder Halle aus. Sortieren Sie nach Stadt und Name.",
+      "starter": "",
+      "expectedSql": "SELECT Name, Stadt, Kundentyp FROM kunden WHERE (Kundentyp='Firma' OR Kundentyp='Verein') AND (Stadt='Dresden' OR Stadt='Halle') ORDER BY Stadt, Name;",
+      "solution": "SELECT Name, Stadt, Kundentyp FROM kunden WHERE (Kundentyp='Firma' OR Kundentyp='Verein') AND (Stadt='Dresden' OR Stadt='Halle') ORDER BY Stadt, Name;",
+      "rowHint": "2 Ergebniszeilen",
+      "orderSensitive": true,
+      "bonus": true
+    },
+    {
+      "id": "b4",
+      "chapter": "bonus",
+      "title": "Bonus · Fehlerjagd",
+      "afb": "II",
+      "type": "sql",
+      "prompt": "Reparieren Sie den Befehl, sodass alle Veranstaltungstitel mit „Open“ am Ende gefunden werden.",
+      "starter": "SELECT Titel\nFROM veranstaltungen\nWHERE Titel LIKE 'Open%';",
+      "expectedSql": "SELECT Titel FROM veranstaltungen WHERE Titel LIKE '%Open';",
+      "solution": "SELECT Titel FROM veranstaltungen WHERE Titel LIKE '%Open';",
+      "rowHint": "1 Ergebniszeile",
+      "bonus": true
+    },
+    {
+      "id": "b5",
+      "chapter": "bonus",
+      "title": "Bonus · Preisstaffel",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Erhöhen Sie die Preise aller Veranstaltungen unter 10 € um 1,50 €.",
+      "starter": "",
+      "expectedSql": "UPDATE veranstaltungen SET Preis = Preis + 1.5 WHERE Preis < 10;",
+      "solution": "UPDATE veranstaltungen SET Preis = Preis + 1.5 WHERE Preis < 10;",
+      "mode": "mutation",
+      "verifySql": "SELECT EventID,Preis FROM veranstaltungen ORDER BY EventID;",
+      "rowHint": "10 Datensatz/Datensätze werden geändert",
+      "bonus": true
+    },
+    {
+      "id": "b6",
+      "chapter": "bonus",
+      "title": "Bonus · Gezieltes Löschen",
+      "afb": "III",
+      "type": "sql",
+      "prompt": "Löschen Sie die Veranstaltung „Summer Gaming Open“.",
+      "starter": "",
+      "expectedSql": "DELETE FROM veranstaltungen WHERE Titel='Summer Gaming Open';",
+      "solution": "DELETE FROM veranstaltungen WHERE Titel='Summer Gaming Open';",
+      "mode": "mutation",
+      "verifySql": "SELECT EventID,Titel FROM veranstaltungen ORDER BY EventID;",
+      "rowHint": "1 Datensatz/Datensätze werden gelöscht",
+      "bonus": true
+    },
+    {
+      "id": "b7",
+      "chapter": "bonus",
+      "title": "Bonus · SQL Island",
+      "afb": "II",
+      "type": "free",
+      "bonus": true,
+      "rowHint": "0 – Reflexionsaufgabe",
+      "external": "https://sql-island.informatik.uni-kl.de/",
+      "prompt": "Öffnen Sie SQL Island und notieren Sie zwei SQL-Ideen oder Vorgehensweisen, die Ihnen dort geholfen haben.",
+      "solution": "Individuelle Reflexion; sinnvoll sind z. B. schrittweises Filtern, das Testen einzelner Bedingungen oder das gezielte Auswählen von Spalten."
+    },
+    {
+      "id": "b8",
+      "chapter": "bonus",
+      "title": "Bonus · Query Review",
+      "afb": "III",
+      "type": "free",
+      "bonus": true,
+      "rowHint": "0 – Reflexionsaufgabe",
+      "prompt": "Beschreiben Sie ein systematisches Vorgehen, mit dem Sie einen komplexen SQL-Befehl vor dem Ausführen fachlich prüfen.",
+      "solution": "Sinnvoll: Tabelle und Ausgabespalten prüfen; Bedingungen einzeln kontrollieren; AND/OR mit Klammern strukturieren; LIKE-Muster prüfen; Sortierung zuletzt ergänzen; angekündigte Zeilenzahl als Plausibilitätskontrolle nutzen."
+    }
   ],
-  glossary: [
-    ['SQL','Structured Query Language; Sprache zum Abfragen und Verändern relationaler Daten.'],
-    ['Abfrage','SQL-Anweisung, die Daten aus einer Datenbank liest.'],
-    ['SELECT','Legt die Spalten fest, die ausgegeben werden.'],
-    ['FROM','Legt die Tabelle fest, aus der gelesen wird.'],
-    ['WHERE','Filtert Datensätze anhand einer Bedingung.'],
-    ['ORDER BY','Sortiert das Abfrageergebnis.'],
-    ['ASC','Aufsteigende Sortierung.'],['DESC','Absteigende Sortierung.'],
-    ['NOT','Kehrt eine Bedingung um.'],['LIKE','Vergleicht Text mit einem Suchmuster.'],
-    ['Wildcard %','Steht in LIKE-Mustern für beliebig viele Zeichen.'],
-    ['AND','Beide verbundenen Bedingungen müssen erfüllt sein.'],['OR','Mindestens eine verbundene Bedingung muss erfüllt sein.'],
-    ['UPDATE','Ändert Werte vorhandener Datensätze.'],['SET','Legt bei UPDATE neue Werte fest.'],['DELETE','Löscht Datensätze.'],
-    ['Primärschlüssel','Attribut, das einen Datensatz eindeutig identifiziert.'],['Fremdschlüssel','Attribut, das auf den Primärschlüssel einer anderen Tabelle verweist.'],
-    ['Datensatz','Eine Zeile einer Tabelle.'],['Attribut','Eine Spalte bzw. ein Feld einer Tabelle.']
+  "glossary": [
+    [
+      "SQL",
+      "Structured Query Language; Sprache zum Abfragen und Verändern relationaler Daten."
+    ],
+    [
+      "Statement",
+      "Ein vollständiger SQL-Befehl."
+    ],
+    [
+      "Ergebnismenge",
+      "Die Datensätze, die eine SELECT-Abfrage zurückgibt."
+    ],
+    [
+      "SELECT",
+      "Legt die auszugebenden Spalten fest."
+    ],
+    [
+      "FROM",
+      "Legt die Quelltabelle fest."
+    ],
+    [
+      "WHERE",
+      "Filtert Datensätze anhand einer Bedingung."
+    ],
+    [
+      "ORDER BY",
+      "Sortiert die Ergebnismenge."
+    ],
+    [
+      "ASC",
+      "Aufsteigende Sortierung."
+    ],
+    [
+      "DESC",
+      "Absteigende Sortierung."
+    ],
+    [
+      "NOT",
+      "Verneint eine Bedingung."
+    ],
+    [
+      "LIKE",
+      "Vergleicht Text mit einem Suchmuster."
+    ],
+    [
+      "Wildcard %",
+      "Steht in LIKE-Mustern für beliebig viele Zeichen."
+    ],
+    [
+      "AND",
+      "Alle verbundenen Bedingungen müssen erfüllt sein."
+    ],
+    [
+      "OR",
+      "Mindestens eine verbundene Bedingung muss erfüllt sein."
+    ],
+    [
+      "UPDATE",
+      "Ändert Werte vorhandener Datensätze."
+    ],
+    [
+      "SET",
+      "Legt bei UPDATE neue Werte fest."
+    ],
+    [
+      "DELETE",
+      "Löscht Datensätze."
+    ],
+    [
+      "Primärschlüssel",
+      "Attribut, das einen Datensatz eindeutig identifiziert."
+    ],
+    [
+      "Fremdschlüssel",
+      "Attribut, das auf den Primärschlüssel einer anderen Tabelle verweist."
+    ],
+    [
+      "Entitätstyp",
+      "Art gleichartiger Objekte; wird im Relationenmodell zur Tabelle."
+    ],
+    [
+      "Beziehung",
+      "Verknüpfung zwischen Entitätstypen; in Chen-Notation als Raute dargestellt."
+    ],
+    [
+      "Attribut",
+      "Eigenschaft; im ER-Modell als Oval und im Relationenmodell als Spalte dargestellt."
+    ]
   ],
-  shop: [
-    {id:'theme-sky',type:'theme',name:'Sky Theme',xp:180,icon:'🌤️',value:'sky'},
-    {id:'avatar-fox',type:'avatar',name:'Query-Fuchs',xp:260,icon:'🦊',value:'🦊'},
-    {id:'theme-night',type:'theme',name:'Terminal Night',xp:420,icon:'🌙',value:'night'},
-    {id:'avatar-robot',type:'avatar',name:'SQL-Roboter',xp:560,icon:'🤖',value:'🤖'},
-    {id:'pet-bee',type:'pet',name:'Binary Bee',xp:720,icon:'🐝',value:'🐝'},
-    {id:'outfit-hoodie',type:'outfit',name:'Coder-Hoodie',xp:850,icon:'🧥',value:'🧥'},
-    {id:'theme-mint',type:'theme',name:'Mint Data',xp:980,icon:'🍃',value:'mint'},
-    {id:'avatar-owl',type:'avatar',name:'Daten-Eule',xp:1120,icon:'🦉',value:'🦉'},
-    {id:'pet-cat',type:'pet',name:'Query-Katze',xp:1280,icon:'🐈',value:'🐈'},
-    {id:'outfit-suit',type:'outfit',name:'DB-Admin Outfit',xp:1450,icon:'🕴️',value:'🕴️'},
-    {id:'avatar-dragon',type:'avatar',name:'SQL-Drache',xp:1650,icon:'🐉',value:'🐉'}
+  "shop": [
+    {
+      "id": "theme-sky",
+      "type": "theme",
+      "name": "Sky Theme",
+      "xp": 180,
+      "icon": "🌤️",
+      "value": "sky"
+    },
+    {
+      "id": "avatar-fox",
+      "type": "avatar",
+      "name": "Query-Fuchs",
+      "xp": 260,
+      "icon": "🦊",
+      "value": "🦊"
+    },
+    {
+      "id": "theme-night",
+      "type": "theme",
+      "name": "Terminal Night",
+      "xp": 420,
+      "icon": "🌙",
+      "value": "night"
+    },
+    {
+      "id": "avatar-robot",
+      "type": "avatar",
+      "name": "SQL-Roboter",
+      "xp": 560,
+      "icon": "🤖",
+      "value": "🤖"
+    },
+    {
+      "id": "pet-bee",
+      "type": "pet",
+      "name": "Binary Bee",
+      "xp": 720,
+      "icon": "🐝",
+      "value": "🐝"
+    },
+    {
+      "id": "outfit-hoodie",
+      "type": "outfit",
+      "name": "Coder-Hoodie",
+      "xp": 850,
+      "icon": "🧥",
+      "value": "🧥"
+    },
+    {
+      "id": "theme-mint",
+      "type": "theme",
+      "name": "Mint Data",
+      "xp": 980,
+      "icon": "🍃",
+      "value": "mint"
+    },
+    {
+      "id": "avatar-owl",
+      "type": "avatar",
+      "name": "Daten-Eule",
+      "xp": 1120,
+      "icon": "🦉",
+      "value": "🦉"
+    },
+    {
+      "id": "pet-cat",
+      "type": "pet",
+      "name": "Query-Katze",
+      "xp": 1280,
+      "icon": "🐈",
+      "value": "🐈"
+    },
+    {
+      "id": "outfit-suit",
+      "type": "outfit",
+      "name": "DB-Admin Outfit",
+      "xp": 1450,
+      "icon": "🕴️",
+      "value": "🕴️"
+    },
+    {
+      "id": "avatar-dragon",
+      "type": "avatar",
+      "name": "SQL-Drache",
+      "xp": 1650,
+      "icon": "🐉",
+      "value": "🐉"
+    }
   ],
-  checklist: [
-    'Ich kann Tabellen, Datensätze, Attribute sowie Primär- und Fremdschlüssel unterscheiden.',
-    'Ich kann mit SELECT und FROM passende Spalten aus einer Tabelle ausgeben.',
-    'Ich kann mit WHERE Datensätze gezielt filtern.',
-    'Ich kann Zahlen- und Textbedingungen korrekt formulieren.',
-    'Ich kann Ergebnisse mit ORDER BY auf- und absteigend sortieren.',
-    'Ich kann Bedingungen mit NOT umkehren.',
-    'Ich kann mit LIKE und % nach Textmustern suchen.',
-    'Ich kann AND, OR und Klammern sicher kombinieren.',
-    'Ich kann Datensätze mit UPDATE gezielt verändern.',
-    'Ich kann Datensätze mit DELETE gezielt löschen und die Wirkung einer WHERE-Bedingung vorher prüfen.'
+  "checklist": [
+    "Ich kann das ER-Modell der EventHub-Datenbank lesen und Tabellen, Attribute sowie Beziehungen zuordnen.",
+    "Ich kann mit SELECT und FROM selbstständig passende Ausgabetabellen erzeugen.",
+    "Ich kann mit WHERE Zahlen-, Text- und Datumsbedingungen formulieren.",
+    "Ich kann Ergebnisse mit ORDER BY auf- und absteigend sortieren.",
+    "Ich kann Bedingungen mit NOT verneinen.",
+    "Ich kann mit LIKE und % Textmuster suchen.",
+    "Ich kann mehrere Bedingungen mit AND, OR und Klammern korrekt kombinieren.",
+    "Ich kann fehlerhafte SQL-Befehle analysieren und korrigieren.",
+    "Ich kann aus einer vorgegebenen Ausgabetabelle einen passenden SQL-Befehl entwickeln.",
+    "Ich kann UPDATE und DELETE gezielt und sicher mit WHERE einsetzen."
   ]
 };
