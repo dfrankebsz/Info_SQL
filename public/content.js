@@ -2,7 +2,7 @@ window.SQL_COURSE = {
   "meta": {
     "title": "SQL Quest Leipzig",
     "subtitle": "EventHub-Datenbank · SQL Schritt für Schritt",
-    "version": "2.0",
+    "version": "2.1",
     "created": "13.11.2026"
   },
   "chapters": [
@@ -600,6 +600,73 @@ window.SQL_COURSE = {
       "rowHint": "12 Ergebniszeilen"
     },
     {
+      "id": "s9",
+      "chapter": "select",
+      "title": "SELECT-Spalten präzise erkennen",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "Theorieaufgabe",
+      "prompt": "Welcher SQL-Befehl gibt ausschließlich die Spalten <strong>OrtID</strong> und <strong>Bezeichnung</strong> aus der Tabelle <strong>orte</strong> aus?",
+      "options": [
+        [
+          "A",
+          "SELECT OrtID, Bezeichnung FROM orte;"
+        ],
+        [
+          "B",
+          "SELECT * FROM OrtID, Bezeichnung;"
+        ],
+        [
+          "C",
+          "FROM orte SELECT OrtID, Bezeichnung;"
+        ],
+        [
+          "D",
+          "SELECT orte FROM OrtID, Bezeichnung;"
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "SELECT OrtID, Bezeichnung FROM orte;"
+    },
+    {
+      "id": "s10",
+      "chapter": "select",
+      "title": "Ausgabetabelle der Veranstaltungsorte rekonstruieren",
+      "afb": "II",
+      "type": "sql",
+      "rowHint": "7 Ergebniszeilen",
+      "prompt": "Schreiben Sie einen vollständigen SQL-Befehl, der exakt diese Ausgabetabelle erzeugt. Es sollen nur die drei sichtbaren Spalten ausgegeben werden.<div class=\"target-output\"><p><strong>Vorgegebene Ausgabetabelle:</strong></p><div class=\"table-scroll\"><table class=\"data-table\"><thead><tr><th>OrtID</th><th>Bezeichnung</th><th>Kapazitaet</th></tr></thead><tbody><tr><td>1</td><td>Werk 2</td><td>700</td></tr><tr><td>2</td><td>Westbad</td><td>450</td></tr><tr><td>3</td><td>Kongresshalle</td><td>1200</td></tr><tr><td>4</td><td>Täubchenthal</td><td>1000</td></tr><tr><td>5</td><td>Messehalle 5</td><td>5000</td></tr><tr><td>6</td><td>Kulturpalast</td><td>1800</td></tr><tr><td>7</td><td>Volkspark Halle</td><td>2500</td></tr></tbody></table></div></div>",
+      "starter": "",
+      "expectedSql": "SELECT OrtID, Bezeichnung, Kapazitaet FROM orte;",
+      "solution": "SELECT OrtID, Bezeichnung, Kapazitaet FROM orte;"
+    },
+    {
+      "id": "s11",
+      "chapter": "select",
+      "title": "Kommafehler im SELECT korrigieren",
+      "afb": "II",
+      "type": "sql",
+      "rowHint": "24 Ergebniszeilen",
+      "prompt": "Der folgende Befehl soll <strong>Name</strong> und <strong>Stadt</strong> aller Kundendatensätze ausgeben. Korrigieren Sie den Fehler.",
+      "starter": "SELECT Name Stadt\nFROM kunden;",
+      "expectedSql": "SELECT Name, Stadt FROM kunden;",
+      "solution": "SELECT Name, Stadt FROM kunden;"
+    },
+    {
+      "id": "s12",
+      "chapter": "select",
+      "title": "Buchungsexport vollständig selbst formulieren",
+      "afb": "III",
+      "type": "sql",
+      "rowHint": "32 Ergebniszeilen",
+      "prompt": "Die Buchhaltung benötigt einen Export mit genau diesen Spalten in dieser Reihenfolge: <strong>BuchungID, KundenID, EventID, AnzahlTickets, Status</strong>. Schreiben Sie den vollständigen SQL-Befehl ohne Gerüst. Es dürfen keine zusätzlichen Spalten ausgegeben werden.",
+      "starter": "",
+      "expectedSql": "SELECT BuchungID, KundenID, EventID, AnzahlTickets, Status FROM buchungen;",
+      "solution": "SELECT BuchungID, KundenID, EventID, AnzahlTickets, Status FROM buchungen;"
+    },
+    {
       "id": "w1",
       "chapter": "where",
       "title": "Aufgabe von WHERE",
@@ -741,6 +808,73 @@ window.SQL_COURSE = {
       "rowHint": "5 Ergebniszeilen"
     },
     {
+      "id": "w11",
+      "chapter": "where",
+      "title": "Vergleichsoperator sicher auswählen",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "Theorieaufgabe",
+      "prompt": "Welche WHERE-Bedingung beschreibt fachlich eindeutig: <strong>„Der Preis beträgt höchstens 5 €“</strong>?",
+      "options": [
+        [
+          "A",
+          "WHERE Preis < 5"
+        ],
+        [
+          "B",
+          "WHERE Preis <= 5"
+        ],
+        [
+          "C",
+          "WHERE Preis > 5"
+        ],
+        [
+          "D",
+          "WHERE Preis = 5"
+        ]
+      ],
+      "correct": [
+        "B"
+      ],
+      "solution": "WHERE Preis <= 5"
+    },
+    {
+      "id": "w12",
+      "chapter": "where",
+      "title": "Nur aktive Mitarbeitende auswählen",
+      "afb": "II",
+      "type": "sql",
+      "rowHint": "11 Ergebniszeilen",
+      "prompt": "Geben Sie <strong>MitarbeiterID, Vorname, Nachname und Bereich</strong> aller aktiven Mitarbeitenden aus. In der Tabelle kennzeichnet <strong>Aktiv = 1</strong> einen aktiven Datensatz. Schreiben Sie den vollständigen SQL-Befehl.",
+      "starter": "",
+      "expectedSql": "SELECT MitarbeiterID, Vorname, Nachname, Bereich FROM mitarbeitende WHERE Aktiv = 1;",
+      "solution": "SELECT MitarbeiterID, Vorname, Nachname, Bereich FROM mitarbeitende WHERE Aktiv = 1;"
+    },
+    {
+      "id": "w13",
+      "chapter": "where",
+      "title": "SQL zur Preis-Ausgabetabelle entwickeln",
+      "afb": "II",
+      "type": "sql",
+      "rowHint": "6 Ergebniszeilen",
+      "prompt": "Leiten Sie einen vollständigen SQL-Befehl aus der folgenden Ausgabetabelle ab. Unterschiedliche fachlich gleichwertige Befehle sind zulässig.<div class=\"target-output\"><p><strong>Vorgegebene Ausgabetabelle:</strong></p><div class=\"table-scroll\"><table class=\"data-table\"><thead><tr><th>EventID</th><th>Titel</th><th>Preis</th></tr></thead><tbody><tr><td>1</td><td>Azubi Connect</td><td>0.0</td></tr><tr><td>12</td><td>Tech Repair Café</td><td>4.0</td></tr><tr><td>13</td><td>Job Dating Wirtschaft</td><td>0.0</td></tr><tr><td>17</td><td>Skate &amp; Street Art</td><td>5.0</td></tr><tr><td>18</td><td>Local Brands Pop-up</td><td>3.5</td></tr><tr><td>19</td><td>Climate Hackday</td><td>0.0</td></tr></tbody></table></div></div>",
+      "starter": "",
+      "expectedSql": "SELECT EventID, Titel, Preis FROM veranstaltungen WHERE Preis <= 5;",
+      "solution": "SELECT EventID, Titel, Preis FROM veranstaltungen WHERE Preis <= 5;"
+    },
+    {
+      "id": "w14",
+      "chapter": "where",
+      "title": "Großbuchungen ohne Gerüst filtern",
+      "afb": "III",
+      "type": "sql",
+      "rowHint": "5 Ergebniszeilen",
+      "prompt": "Die Buchhaltung möchte alle Buchungen mit <strong>mindestens 10 Tickets</strong> kontrollieren. Geben Sie ausschließlich <strong>BuchungID, KundenID, EventID und AnzahlTickets</strong> aus. Formulieren Sie den vollständigen SQL-Befehl selbstständig.",
+      "starter": "",
+      "expectedSql": "SELECT BuchungID, KundenID, EventID, AnzahlTickets FROM buchungen WHERE AnzahlTickets >= 10;",
+      "solution": "SELECT BuchungID, KundenID, EventID, AnzahlTickets FROM buchungen WHERE AnzahlTickets >= 10;"
+    },
+    {
       "id": "o1",
       "chapter": "order",
       "title": "Standard-Sortierung",
@@ -870,6 +1004,76 @@ window.SQL_COURSE = {
       "expectedSql": "SELECT Titel, Kategorie, Preis FROM veranstaltungen WHERE NOT Kategorie='Tech' ORDER BY Preis DESC;",
       "solution": "SELECT Titel, Kategorie, Preis FROM veranstaltungen WHERE NOT Kategorie='Tech' ORDER BY Preis DESC;",
       "rowHint": "17 Ergebniszeilen",
+      "orderSensitive": true
+    },
+    {
+      "id": "o9",
+      "chapter": "order",
+      "title": "DESC richtig deuten",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "Theorieaufgabe",
+      "prompt": "Was bewirkt <strong>DESC</strong> in einer ORDER-BY-Klausel?",
+      "options": [
+        [
+          "A",
+          "Die Ausgabe wird absteigend sortiert."
+        ],
+        [
+          "B",
+          "Die Ausgabe wird aufsteigend sortiert."
+        ],
+        [
+          "C",
+          "Datensätze werden gelöscht."
+        ],
+        [
+          "D",
+          "Doppelte Datensätze werden ausgeblendet."
+        ]
+      ],
+      "correct": [
+        "A"
+      ],
+      "solution": "DESC sortiert die angegebenen Werte absteigend."
+    },
+    {
+      "id": "o10",
+      "chapter": "order",
+      "title": "Kundenliste zweistufig sortieren",
+      "afb": "II",
+      "type": "sql",
+      "rowHint": "24 Ergebniszeilen",
+      "prompt": "Geben Sie <strong>KundenID, Name und Stadt</strong> aller Kunden aus. Sortieren Sie zuerst alphabetisch nach <strong>Stadt</strong> und innerhalb derselben Stadt zusätzlich nach <strong>Name</strong>. Schreiben Sie den vollständigen Befehl.",
+      "starter": "",
+      "expectedSql": "SELECT KundenID, Name, Stadt FROM kunden ORDER BY Stadt, Name;",
+      "solution": "SELECT KundenID, Name, Stadt FROM kunden ORDER BY Stadt, Name;",
+      "orderSensitive": true
+    },
+    {
+      "id": "o11",
+      "chapter": "order",
+      "title": "Sortierte Ausgabetabelle rekonstruieren",
+      "afb": "II",
+      "type": "sql",
+      "rowHint": "7 Ergebniszeilen",
+      "prompt": "Rekonstruieren Sie einen vollständigen SQL-Befehl, der exakt diese Reihenfolge erzeugt. Es sollen alle <strong>nicht privaten</strong> Kundendatensätze ausgegeben und nach Stadt sowie Name sortiert werden.<div class=\"target-output\"><p><strong>Vorgegebene Ausgabetabelle:</strong></p><div class=\"table-scroll\"><table class=\"data-table\"><thead><tr><th>KundenID</th><th>Name</th><th>Stadt</th><th>Kundentyp</th></tr></thead><tbody><tr><td>12</td><td>Pixelwerk AG</td><td>Berlin</td><td>Firma</td></tr><tr><td>14</td><td>GreenStep UG</td><td>Dresden</td><td>Firma</td></tr><tr><td>15</td><td>Kulturraum e.V.</td><td>Halle</td><td>Verein</td></tr><tr><td>13</td><td>CampusFit e.V.</td><td>Leipzig</td><td>Verein</td></tr><tr><td>16</td><td>FutureLab GmbH</td><td>Leipzig</td><td>Firma</td></tr><tr><td>11</td><td>Nova Media GmbH</td><td>Leipzig</td><td>Firma</td></tr><tr><td>24</td><td>UrbanSports GmbH</td><td>Leipzig</td><td>Firma</td></tr></tbody></table></div></div>",
+      "starter": "",
+      "expectedSql": "SELECT KundenID, Name, Stadt, Kundentyp FROM kunden WHERE NOT Kundentyp='Privat' ORDER BY Stadt, Name;",
+      "solution": "SELECT KundenID, Name, Stadt, Kundentyp FROM kunden WHERE NOT Kundentyp='Privat' ORDER BY Stadt, Name;",
+      "orderSensitive": true
+    },
+    {
+      "id": "o12",
+      "chapter": "order",
+      "title": "NOT und mehrstufiges Sortieren selbstständig kombinieren",
+      "afb": "III",
+      "type": "sql",
+      "rowHint": "17 Ergebniszeilen",
+      "prompt": "Geben Sie <strong>EventID, Titel, Kategorie und Preis</strong> aller Veranstaltungen aus, die <strong>nicht</strong> zur Kategorie Gaming gehören. Sortieren Sie zuerst alphabetisch nach <strong>Kategorie</strong> und innerhalb derselben Kategorie <strong>absteigend nach Preis</strong>. Schreiben Sie den vollständigen SQL-Befehl ohne Gerüst.",
+      "starter": "",
+      "expectedSql": "SELECT EventID, Titel, Kategorie, Preis FROM veranstaltungen WHERE NOT Kategorie='Gaming' ORDER BY Kategorie, Preis DESC;",
+      "solution": "SELECT EventID, Titel, Kategorie, Preis FROM veranstaltungen WHERE NOT Kategorie='Gaming' ORDER BY Kategorie, Preis DESC;",
       "orderSensitive": true
     },
     {
@@ -1057,6 +1261,74 @@ window.SQL_COURSE = {
       "expectedSql": "SELECT * FROM kunden WHERE (Stadt='Leipzig' OR Stadt='Dresden') AND Kundentyp='Firma';",
       "solution": "SELECT * FROM kunden WHERE (Stadt='Leipzig' OR Stadt='Dresden') AND Kundentyp='Firma';",
       "rowHint": "4 Ergebniszeilen"
+    },
+    {
+      "id": "l13",
+      "chapter": "logic",
+      "title": "LIKE-Muster für ein Namensende erkennen",
+      "afb": "I",
+      "type": "single",
+      "rowHint": "Theorieaufgabe",
+      "prompt": "Welches LIKE-Muster findet Textwerte, die auf <strong>GmbH</strong> enden?",
+      "options": [
+        [
+          "A",
+          "LIKE 'GmbH%'"
+        ],
+        [
+          "B",
+          "LIKE '%GmbH'"
+        ],
+        [
+          "C",
+          "LIKE '%GmbH%'"
+        ],
+        [
+          "D",
+          "LIKE 'GmbH'"
+        ]
+      ],
+      "correct": [
+        "B"
+      ],
+      "solution": "LIKE '%GmbH' – das Prozentzeichen erlaubt beliebige Zeichen vor dem festen Textende."
+    },
+    {
+      "id": "l14",
+      "chapter": "logic",
+      "title": "Zwei Stadtmuster mit OR kombinieren",
+      "afb": "II",
+      "type": "sql",
+      "rowHint": "5 Ergebniszeilen",
+      "prompt": "Geben Sie <strong>KundenID, Name und Stadt</strong> aller Kunden aus, deren Stadt mit <strong>B</strong> oder mit <strong>D</strong> beginnt. Verwenden Sie LIKE und OR und schreiben Sie den vollständigen Befehl.",
+      "starter": "",
+      "expectedSql": "SELECT KundenID, Name, Stadt FROM kunden WHERE Stadt LIKE 'B%' OR Stadt LIKE 'D%';",
+      "solution": "SELECT KundenID, Name, Stadt FROM kunden WHERE Stadt LIKE 'B%' OR Stadt LIKE 'D%';"
+    },
+    {
+      "id": "l15",
+      "chapter": "logic",
+      "title": "Logikfehler bei OR und AND korrigieren",
+      "afb": "II",
+      "type": "sql",
+      "rowHint": "4 Ergebniszeilen",
+      "prompt": "Der folgende Befehl soll nur <strong>Tech- oder Business-Veranstaltungen unter 10 €</strong> liefern. Korrigieren Sie die Bedingungslogik so, dass die Preisgrenze für beide Kategorien gilt.",
+      "starter": "SELECT EventID, Titel, Kategorie, Preis\nFROM veranstaltungen\nWHERE Kategorie = 'Tech' OR Kategorie = 'Business' AND Preis < 10;",
+      "expectedSql": "SELECT EventID, Titel, Kategorie, Preis FROM veranstaltungen WHERE (Kategorie='Tech' OR Kategorie='Business') AND Preis < 10;",
+      "solution": "SELECT EventID, Titel, Kategorie, Preis FROM veranstaltungen WHERE (Kategorie='Tech' OR Kategorie='Business') AND Preis < 10;"
+    },
+    {
+      "id": "l16",
+      "chapter": "logic",
+      "title": "Komplexe Ausgabetabelle vollständig rekonstruieren",
+      "afb": "III",
+      "type": "sql",
+      "rowHint": "3 Ergebniszeilen",
+      "prompt": "Leiten Sie aus der Ausgabetabelle einen vollständigen SQL-Befehl ab. Gesucht sind Leipziger Unternehmen, deren Name auf <strong>GmbH</strong> oder <strong>AG</strong> endet. Die Ausgabe ist nach Name sortiert. Mehrere fachlich gleichwertige SQL-Formulierungen sind möglich.<div class=\"target-output\"><p><strong>Vorgegebene Ausgabetabelle:</strong></p><div class=\"table-scroll\"><table class=\"data-table\"><thead><tr><th>KundenID</th><th>Name</th><th>Stadt</th></tr></thead><tbody><tr><td>16</td><td>FutureLab GmbH</td><td>Leipzig</td></tr><tr><td>11</td><td>Nova Media GmbH</td><td>Leipzig</td></tr><tr><td>24</td><td>UrbanSports GmbH</td><td>Leipzig</td></tr></tbody></table></div></div>",
+      "starter": "",
+      "expectedSql": "SELECT KundenID, Name, Stadt FROM kunden WHERE (Name LIKE '%GmbH' OR Name LIKE '%AG') AND Stadt='Leipzig' ORDER BY Name;",
+      "solution": "SELECT KundenID, Name, Stadt FROM kunden WHERE (Name LIKE '%GmbH' OR Name LIKE '%AG') AND Stadt='Leipzig' ORDER BY Name;",
+      "orderSensitive": true
     },
     {
       "id": "c1",

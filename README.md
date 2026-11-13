@@ -37,10 +37,12 @@ Die relationale SQL-Übungsdatenbank läuft absichtlich isoliert pro Browser. Da
 
 Innerhalb der Kapitel steigt die Schwierigkeit. Spätere Aufgaben geben keine Teile des SQL-Befehls mehr vor.
 
+Die Kapitel 3 bis 6 wurden gezielt erweitert: zusätzliche vollständige SQL-Statements, Fehlerkorrekturen, Rekonstruktionen aus Ausgabetabellen und selbstständige Kombinationen von Bedingungen und Sortierungen.
+
 ## Aufgabenformate
 
-- 60 reguläre Aufgaben
-- 15 × AFB I, 30 × AFB II, 15 × AFB III
+- 76 reguläre Aufgaben
+- 19 × AFB I, 38 × AFB II, 19 × AFB III
 - 12 Aufgaben im Abschlusstest
 - 8 Bonusmissionen in AFB II/III
 - echte SQL-Abfragen mit Ergebnistabellen
